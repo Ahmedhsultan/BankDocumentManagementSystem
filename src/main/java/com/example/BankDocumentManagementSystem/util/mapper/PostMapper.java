@@ -14,16 +14,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class PostMapper extends BaseMapper <Post, PostDTO> {
-    @Autowired
-    @Lazy
-    protected CommentMapper commentMapper;
-    @Autowired
-    @Lazy
-    protected DocumentMapper documentMapper;
-    @Autowired
-    @Lazy
-    protected UserMapper userMapper;
-
     @Override
     public PostDTO toDTO(Post post) {
         Set<CommentDTO> commentDTOS = post.getComments().stream()

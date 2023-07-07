@@ -14,16 +14,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper extends BaseMapper<User, UserDTO> {
-    @Autowired
-    @Lazy
-    protected CommentMapper commentMapper;
-    @Autowired
-    @Lazy
-    protected DocumentMapper documentMapper;
-    @Autowired
-    @Lazy
-    protected PostMapper postMapper;
-
     @Override
     public UserDTO toDTO(User user) {
         Set<DocumentDTO> documentDTOs = user.getDocuments().stream()
