@@ -1,8 +1,8 @@
 package com.example.BankDocumentManagementSystem.util.mapper;
 
-import com.example.BankDocumentManagementSystem.dto.CommentDTO;
-import com.example.BankDocumentManagementSystem.dto.DocumentDTO;
-import com.example.BankDocumentManagementSystem.dto.PostDTO;
+import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
+import com.example.BankDocumentManagementSystem.dto.responce.DocumentDTOResp;
+import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.Post;
 import org.springframework.stereotype.Component;
 
@@ -10,21 +10,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class PostMapper extends BaseMapper <Post, PostDTO> {
+public class PostMapper extends BaseMapper <Post, PostDTOResp> {
     @Override
-    public PostDTO toDTO(Post post) {
-        Set<CommentDTO> commentDTOS = post.getComments().stream()
+    public PostDTOResp toDTO(Post post) {
+        Set<CommentDTOResp> commentDTOResps = post.getComments().stream()
                 .map(commentMapper::toDTO)
                 .collect(Collectors.toSet());
 
-        Set<DocumentDTO> documentDTOs = post.getDocuments().stream()
+        Set<DocumentDTOResp> documentDTOResps = post.getDocuments().stream()
                 .map(documentMapper::toDTO)
                 .collect(Collectors.toSet());
 
-        return PostDTO.builder()
+        return PostDTOResp.builder()
                 .id(post.getId())
-                .comments(commentDTOS)
-                .documents(documentDTOs)
+                .comments(commentDTOResps)
+                .documents(documentDTOResps)
                 .build();
     }
 }

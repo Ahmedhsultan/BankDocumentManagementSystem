@@ -17,6 +17,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "user_name")
+    private String userName;
+    private String password;
     private String name;
     private Integer age;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
