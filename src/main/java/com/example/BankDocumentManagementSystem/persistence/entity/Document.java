@@ -17,7 +17,7 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String url;
+    private Byte[] bytes;
     @Column(name = "file_name")
     private String fileName;
     @ManyToOne
