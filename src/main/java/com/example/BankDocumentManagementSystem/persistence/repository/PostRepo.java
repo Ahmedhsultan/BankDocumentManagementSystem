@@ -1,7 +1,7 @@
 package com.example.BankDocumentManagementSystem.persistence.repository;
 
-import com.example.BankDocumentManagementSystem.persistence.entity.User;
+import com.example.BankDocumentManagementSystem.persistence.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends JpaRepository<User, Integer> {
+public interface PostRepo extends JpaRepository<Post, Integer> {
 }
