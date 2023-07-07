@@ -4,6 +4,8 @@ import com.example.BankDocumentManagementSystem.dto.CommentDTO;
 import com.example.BankDocumentManagementSystem.dto.DocumentDTO;
 import com.example.BankDocumentManagementSystem.dto.PostDTO;
 import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -11,6 +13,16 @@ import java.util.stream.Collectors;
 
 @Component
 public class CommentMapper extends BaseMapper<Comment, CommentDTO>{
+    @Autowired
+    @Lazy
+    protected DocumentMapper documentMapper;
+    @Autowired
+    @Lazy
+    protected PostMapper postMapper;
+    @Autowired
+    @Lazy
+    protected UserMapper userMapper;
+
     @Override
     public CommentDTO toDTO(Comment comment) {
 

@@ -6,6 +6,8 @@ import com.example.BankDocumentManagementSystem.dto.PostDTO;
 import com.example.BankDocumentManagementSystem.dto.UserDTO;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
 import org.hibernate.annotations.Comments;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -13,6 +15,16 @@ import java.util.stream.Collectors;
 
 @Component
 public class DocumentMapper extends BaseMapper<Document, DocumentDTO> {
+    @Autowired
+    @Lazy
+    protected CommentMapper commentMapper;
+    @Autowired
+    @Lazy
+    protected PostMapper postMapper;
+    @Autowired
+    @Lazy
+    protected UserMapper userMapper;
+
     @Override
     public DocumentDTO toDTO(Document document) {
         UserDTO userDTO = userMapper.toDTO(document.getUser());
