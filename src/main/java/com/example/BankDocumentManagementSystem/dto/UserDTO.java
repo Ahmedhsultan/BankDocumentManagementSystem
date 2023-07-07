@@ -1,7 +1,10 @@
 package com.example.BankDocumentManagementSystem.dto;
 
+import lombok.Builder;
+
 import java.util.Set;
 
+@Builder
 public class UserDTO {
     private Integer id;
     private String name;

@@ -1,7 +1,9 @@
 package com.example.BankDocumentManagementSystem.dto;
 
-import java.util.Set;
+import lombok.Builder;
 
+import java.util.Set;
+@Builder
 public class DocumentDTO {
     private Integer id;
     private String url;
