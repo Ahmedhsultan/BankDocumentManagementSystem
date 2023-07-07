@@ -1,12 +1,9 @@
 package com.example.BankDocumentManagementSystem.util.mapper;
 
-import com.example.BankDocumentManagementSystem.dto.CommentDTO;
 import com.example.BankDocumentManagementSystem.dto.DocumentDTO;
 import com.example.BankDocumentManagementSystem.dto.PostDTO;
 import com.example.BankDocumentManagementSystem.dto.UserDTO;
 import com.example.BankDocumentManagementSystem.persistence.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
