@@ -6,18 +6,13 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-@Entity(name = "document")
-public class Document {
+@Entity(name = "comment")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String url;
-    @Column(name = "file_name")
-    private String fileName;
     @ManyToOne
-    private User user;
-    @ManyToMany
-    private Set<Post> posts;
-    @ManyToMany
-    private Set<Comment> comments;
+    private Post post;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Document> documents;
 }
