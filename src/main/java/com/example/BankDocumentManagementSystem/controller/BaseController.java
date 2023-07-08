@@ -5,6 +5,7 @@ import com.example.BankDocumentManagementSystem.util.mapper.BaseMapper;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,9 +19,13 @@ public class BaseController <ID, Entity, Repo extends JpaRepository<Entity, ID>,
     public List<DTO> getAll(){
         return getService().findAll();
     }
-    @GetMapping()
+    @GetMapping
     public DTO getById(@RequestParam ID id){
         return getService().findById(id);
+    }
+    @DeleteMapping
+    public void deleteById(@RequestParam ID id){
+        getService().removeById(id);
     }
 
     protected Service getService(){

@@ -8,7 +8,7 @@ import java.util.Set;
 @Builder
 public class DocumentDTOResp {
     private Integer id;
-    private Byte[] bytes;
+    private String url;
     private String fileName;
     private UserDTOResp user;
     private Set<PostDTOResp> posts;

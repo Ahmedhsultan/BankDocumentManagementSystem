@@ -25,10 +25,6 @@ public class BaseService <Entity, Repo extends JpaRepository<Entity, ID>, ID, DT
         return getRepo().findAll().stream().map(getMapper()::toDTO).collect(Collectors.toList());
     }
 
-//    public Entity save(Entity entity){
-//        return repo.save(entity);
-//    }
-
     protected Repo getRepo(){
         return repo.getObject();
     }

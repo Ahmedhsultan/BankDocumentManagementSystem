@@ -26,7 +26,7 @@ public class DocumentMapper extends BaseMapper<Document, DocumentDTOResp> {
 
         return DocumentDTOResp.builder()
                 .id(document.getId())
-                .bytes(document.getBytes())
+                .url(document.getUrl())
                 .fileName(document.getFileName())
                 .user(userDTOResp)
                 .comments(commentDTOResps)
