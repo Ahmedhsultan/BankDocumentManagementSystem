@@ -5,6 +5,7 @@ import com.example.BankDocumentManagementSystem.persistence.entity.Document;
 import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
 import com.example.BankDocumentManagementSystem.service.DocumentService;
 import com.example.BankDocumentManagementSystem.util.mapper.DocumentMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,27 @@ public class DocumentController extends BaseController<Integer, Document, Docume
         this.documentService = documentService;
     }
 
+    @DeleteMapping("delete")
+    public ResponseEntity<String> delete(@RequestParam("username") String userName,
+                                         @RequestParam("filename") String fileName){
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Delete resource from server
+        var document = new DocumentParam(userName, fileName);
+        documentService.delete(document);
+
+        return ResponseEntity.ok("Success");
+    }
+
     @PostMapping("upload")
     public ResponseEntity<String> upload(@RequestParam("file")MultipartFile multipartFile,
                 @RequestParam("username") String userName){
         /**
-         * In case we use spring security we will get username from jwt token
+         * In case we use spring security we will get username from JWT token
          * But spring security isn't covered in this task
          * So we take username as parameter
          */
@@ -43,7 +60,8 @@ public class DocumentController extends BaseController<Integer, Document, Docume
             InputStream inputStream = multipartFile.getInputStream();
 
             //Add file to system and database
-            documentService.upload(fileName, inputStream, userName);
+            var document = new DocumentParam(userName, fileName);
+            documentService.upload(document, inputStream);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body("Failed Operation!!");
@@ -56,13 +74,14 @@ public class DocumentController extends BaseController<Integer, Document, Docume
     public ResponseEntity<Resource> download(@RequestParam("username") String userName,
                                            @RequestParam("filename") String fileName) {
         /**
-         * In case we use spring security we will get username from jwt token
+         * In case we use spring security we will get username from JWT token
          * But spring security isn't covered in this task
          * So we take username as parameter
          */
 
         //Get resource from server
-        Resource resource = documentService.download(userName, fileName);
+        var document = new DocumentParam(userName, fileName);
+        Resource resource = documentService.download(document);
 
         // Set the response headers
         HttpHeaders headers = new HttpHeaders();
