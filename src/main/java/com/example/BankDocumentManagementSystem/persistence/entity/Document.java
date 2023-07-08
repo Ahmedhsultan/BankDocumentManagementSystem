@@ -18,8 +18,10 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String url;
-    @Column(name = "file_name")
-    private String fileName;
+    @Column(name = "file_hash")
+    private String fileHash;
+    @Column(name = "original_file_name")
+    private String originalFileName;
     @ManyToOne
     private User user;
     @ManyToMany

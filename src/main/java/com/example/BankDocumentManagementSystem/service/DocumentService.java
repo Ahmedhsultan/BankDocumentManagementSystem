@@ -14,10 +14,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DocumentService extends BaseService<Document, DocumentRepo, Integer, DocumentDTOResp, DocumentMapper> {
@@ -32,30 +36,34 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
 
 
     public void delete(DocumentParam documentParam){
-        String userName = documentParam.userName();
-        String fileName = documentParam.fileName();
-
+        //Find hash from db
+        String fileHash = getFileHash(documentParam);
         //URL which file locate in
-        String url = uploadPath + "/" + userName + "/" + fileName;
-        Path path = Paths.get(url);
+        Path path = Paths.get(uploadPath, fileHash);
 
         if(!Files.exists(path))
             throw new DocumentFailedException("File not exist!!");
 
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new DocumentFailedException("Server Failed to delete");
+        //Delete document from table of documents
+        User user = getUser(documentParam.userName());
+        deleteDocumentFromTable(user, fileHash);
+
+        //Check if no user use this file delete it from server
+        if(!isFileUsedFromAnotherUser(fileHash)){
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new DocumentFailedException("Server Failed to delete");
+            }
         }
     }
     public Resource download(DocumentParam documentParam){
-        String userName = documentParam.userName();
-        String fileName = documentParam.fileName();
+        //Find hash from db
+        String fileHash = getFileHash(documentParam);
         //Get file from server
-        Path filePath = Paths.get(uploadPath, userName, fileName);
+        Path filePath = Paths.get(uploadPath, fileHash);
         Resource resource = new FileSystemResource(filePath.toFile());
-
         //Check if file exist
         if(!resource.exists())
             throw new DocumentFailedException("File not exist!!");
@@ -66,34 +74,69 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         String userName = documentParam.userName();
         String fileName = documentParam.fileName();
 
+        //Hash file to make it unique file per server
+        String fileHash;
+        try {
+            fileHash = hashFile(inputStream.readAllBytes());
+        } catch (NoSuchAlgorithmException | IOException e) {
+            throw new DocumentFailedException("Server Failed to upload!!");
+        }
         //URL which file locate in
-        String url = uploadPath + "/" + userName + "/" + fileName;
-        //Create folder for this user
-        createNewFolder(userName);
+        String url = uploadPath + "/" + fileHash;
         //Save document in this folder
-        saveDocumentInServer(inputStream, url);
+        if (!isFileSaved(fileHash))
+            saveDocumentInServer(inputStream, url);
         //Save document name and url and user in database
-        Optional<User> userOptional = userRepo.findByUserName(userName);
-        if (!userOptional.isPresent())
-            throw new DocumentFailedException("Server Failed to upload");
-        User user = userOptional.get();
-        saveDocumentInDatabase(fileName, user, url);
+        User user = getUser(userName);
+        saveDocumentInDatabase(fileHash, fileName, user, url);
     }
 
 
     /**
      * helpful methods
-     * @param folderName
      */
-    private void createNewFolder(String folderName){
-        File folder = new File(uploadPath + "/" + folderName);
+    private void deleteDocumentFromTable(User user, String fileHash){
+        Document document = user.getDocuments().stream()
+                .filter(x -> x.getFileHash().equals(fileHash))
+                .findFirst().get();
 
-        if (!folder.exists()) {
-            boolean created = folder.mkdir();
-            if (!created) {
-                throw new DocumentFailedException("Server Failed to upload");
-            }
-        }
+        documentRepo.delete(document);
+    }
+    private boolean isFileUsedFromAnotherUser(String fileHash){
+        long count = documentRepo.findDocumentByFileHash(fileHash).stream().count();
+        if (count>0)
+            return true;
+        return false;
+    }
+    private String getFileHash(DocumentParam documentParam){
+        User user = getUser(documentParam.userName());
+        Set<Document> documents = user.getDocuments();
+        Document document = documents.stream()
+                .filter(x -> x.getOriginalFileName().equals(documentParam.fileName()))
+                .findFirst()
+                .get();
+
+        return document.getFileHash();
+    }
+    private User getUser(String userName){
+        Optional<User> userOptional = userRepo.findByUserName(userName);
+        if (!userOptional.isPresent())
+            throw new DocumentFailedException("Unavailable user!!");
+
+        return userOptional.get();
+    }
+    private String hashFile(byte[] fileBytes) throws NoSuchAlgorithmException {
+        byte[] hash = MessageDigest.getInstance("MD5").digest(fileBytes);
+        String checksum = new BigInteger(1, hash).toString(16);
+
+        return checksum;
+    }
+    private boolean isFileSaved(String url){
+        Path filePath = Paths.get(url);
+        if(Files.exists(filePath))
+            return true;
+
+        return false;
     }
     private void saveDocumentInServer(InputStream inputStream, String url){
         //Get the folder path in server
@@ -112,10 +155,11 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
             throw new DocumentFailedException("Server Failed to upload");
         }
     }
-    private void saveDocumentInDatabase(String fileName, User user, String url){
+    private void saveDocumentInDatabase(String fileHash, String fileName, User user, String url){
         Document document = Document.builder()
                 .url(url)
-                .fileName(fileName)
+                .fileHash(fileHash)
+                .originalFileName(fileName)
                 .user(user)
                 .build();
 
