@@ -34,7 +34,7 @@ public class DocumentController extends BaseController<Integer, Document, Docume
          */
 
         //Delete resource from server
-        var document = new DocumentParam(userName, fileName);
+        var document = new DocumentParam(fileName, userName);
         documentService.delete(document);
 
         return ResponseEntity.ok("Success");
@@ -60,14 +60,45 @@ public class DocumentController extends BaseController<Integer, Document, Docume
             InputStream inputStream = multipartFile.getInputStream();
 
             //Add file to system and database
-            var document = new DocumentParam(userName, fileName);
+            var document = new DocumentParam(fileName, userName);
             documentService.upload(document, inputStream);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body("Failed Operation!!");
         }
 
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Success");
+    }
+
+    @PostMapping("update")
+    public ResponseEntity<String> update(@RequestParam("file")MultipartFile multipartFile,
+                                         @RequestParam("username") String userName){
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Check if file is empty
+        if (multipartFile.isEmpty())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body("Please select a file to upload.");
+
+        //Get file name and inputstream and run upload method
+        try {
+            //Get file date
+            String fileName = multipartFile.getOriginalFilename();
+            InputStream inputStream = multipartFile.getInputStream();
+
+            //Add file to system and database
+            var document = new DocumentParam(fileName, userName);
+            documentService.delete(document);
+            documentService.upload(document, inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body("Failed Operation!!");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }
 
     @GetMapping("download")
@@ -80,7 +111,7 @@ public class DocumentController extends BaseController<Integer, Document, Docume
          */
 
         //Get resource from server
-        var document = new DocumentParam(userName, fileName);
+        var document = new DocumentParam(fileName, userName);
         Resource resource = documentService.download(document);
 
         // Set the response headers

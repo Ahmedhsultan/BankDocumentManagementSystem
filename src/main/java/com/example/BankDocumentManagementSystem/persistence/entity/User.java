@@ -22,7 +22,7 @@ public class User {
     private String password;
     private String name;
     private Integer age;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Document> documents;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Post> posts;

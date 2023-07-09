@@ -19,6 +19,6 @@ public class Post {
     private Integer id;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Document> documents;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "post")
     private Set<Comment> comments;
 }

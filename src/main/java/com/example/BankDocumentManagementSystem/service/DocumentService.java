@@ -38,9 +38,9 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
     public void delete(DocumentParam documentParam){
         //Find hash from db
         String fileHash = getFileHash(documentParam);
+
         //URL which file locate in
         Path path = Paths.get(uploadPath, fileHash);
-
         if(!Files.exists(path))
             throw new DocumentFailedException("File not exist!!");
 
@@ -84,7 +84,7 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         //URL which file locate in
         String url = uploadPath + "/" + fileHash;
         //Save document in this folder
-        if (!isFileSaved(fileHash))
+        if (!isFileSaved(url))
             saveDocumentInServer(inputStream, url);
         //Save document name and url and user in database
         User user = getUser(userName);
@@ -111,12 +111,14 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
     private String getFileHash(DocumentParam documentParam){
         User user = getUser(documentParam.userName());
         Set<Document> documents = user.getDocuments();
-        Document document = documents.stream()
+        Optional<Document> optionalDocument = documents.stream()
                 .filter(x -> x.getOriginalFileName().equals(documentParam.fileName()))
-                .findFirst()
-                .get();
+                .findFirst();
 
-        return document.getFileHash();
+        if (!optionalDocument.isPresent())
+            throw new DocumentFailedException("Document not exist!!");
+
+        return optionalDocument.get().getFileHash();
     }
     private User getUser(String userName){
         Optional<User> userOptional = userRepo.findByUserName(userName);

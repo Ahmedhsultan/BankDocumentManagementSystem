@@ -18,7 +18,7 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String url;
-    @Column(name = "file_hash")
+    @Column(name = "file_hash", unique = true)
     private String fileHash;
     @Column(name = "original_file_name")
     private String originalFileName;
