@@ -168,9 +168,11 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
                 .url(url)
                 .fileHash(fileHash)
                 .originalFileName(fileName)
-                .user(user)
                 .build();
 
-        documentRepo.save(document);
+//        Document document1 = documentRepo.save(document);
+        user.getDocuments().add(document);
+        userRepo.save(user);
+//        documentRepo.save(document);
     }
 }
