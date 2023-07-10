@@ -12,7 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Data
-@Entity(name = "post")
+@Entity
+@Table(name = "post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +22,7 @@ public class Post {
     private Set<Document> documents;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "post")
     private Set<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

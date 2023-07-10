@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-@Entity(name = "user_table")
+@Entity
+@Table(name = "user_table")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +25,8 @@ public class User {
     private String name;
     private Integer age;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Document> documents;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Post> posts;
+    private Set<Document> documents = new HashSet<>();
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Post> posts = new HashSet<>();
 }
 

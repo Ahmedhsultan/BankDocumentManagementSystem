@@ -22,7 +22,7 @@ public class Document {
     private String fileHash;
     @Column(name = "original_file_name")
     private String originalFileName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     @ManyToMany
     private Set<Post> posts;

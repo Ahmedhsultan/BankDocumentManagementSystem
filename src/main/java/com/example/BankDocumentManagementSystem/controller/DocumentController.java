@@ -91,8 +91,7 @@ public class DocumentController extends BaseController<Integer, Document, Docume
 
             //Add file to system and database
             var document = new DocumentParam(fileName, userName);
-            documentService.delete(document);
-            documentService.upload(document, inputStream);
+            documentService.update(document, inputStream);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body("Failed Operation!!");

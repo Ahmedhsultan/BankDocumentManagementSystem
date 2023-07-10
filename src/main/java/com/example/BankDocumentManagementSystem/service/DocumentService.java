@@ -12,6 +12,7 @@ import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -20,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,7 +36,11 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         this.userRepo = userRepo;
     }
 
-
+    @Transactional
+    public void update(DocumentParam documentParam, InputStream inputStream){
+        delete(documentParam);
+        upload(documentParam, inputStream);
+    }
     public void delete(DocumentParam documentParam){
         //Find hash from db
         String fileHash = getFileHash(documentParam);
