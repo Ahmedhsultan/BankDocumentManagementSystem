@@ -18,8 +18,8 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Document> documents;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Document document;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "post")
     private Set<Comment> comments;
     @ManyToOne

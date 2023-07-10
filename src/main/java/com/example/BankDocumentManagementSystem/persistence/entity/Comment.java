@@ -17,8 +17,8 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Document> documents;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Document document;
 }
