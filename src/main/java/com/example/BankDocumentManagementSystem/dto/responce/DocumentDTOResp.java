@@ -11,6 +11,6 @@ public class DocumentDTOResp {
     private String url;
     private String fileName;
     private UserDTOResp user;
-    private Set<PostDTOResp> posts;
+    private PostDTOResp post;
     private Set<CommentDTOResp> comments;
 }

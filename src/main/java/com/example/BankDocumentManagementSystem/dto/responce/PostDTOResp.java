@@ -9,6 +9,6 @@ import java.util.Set;
 @Builder
 public class PostDTOResp {
     private Integer id;
-    private Set<DocumentDTOResp> documents;
+    private DocumentDTOResp document;
     private Set<CommentDTOResp> comments;
 }

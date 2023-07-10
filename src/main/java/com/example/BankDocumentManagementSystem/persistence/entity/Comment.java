@@ -15,7 +15,6 @@ import java.util.Set;
 @Entity(name = "comment")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     private Post post;

@@ -14,23 +14,21 @@ import java.util.stream.Collectors;
 public class DocumentMapper extends BaseMapper<Document, DocumentDTOResp> {
     @Override
     public DocumentDTOResp toDTO(Document document) {
-        UserDTOResp userDTOResp = userMapper.toDTO(document.getUser());
+//        UserDTOResp userDTOResp = userMapper.toDTO(document.getUser());
 
         Set<CommentDTOResp> commentDTOResps = document.getComments().stream()
                 .map(commentMapper::toDTO)
                 .collect(Collectors.toSet());
 
-        Set<PostDTOResp> postDTOResps = document.getPosts().stream()
-                .map(postMapper::toDTO)
-                .collect(Collectors.toSet());
+        PostDTOResp postDTOResps = postMapper.toDTO(document.getPost());
 
         return DocumentDTOResp.builder()
                 .id(document.getId())
                 .url(document.getUrl())
                 .fileName(document.getOriginalFileName())
-                .user(userDTOResp)
+//                .user(userDTOResp)
                 .comments(commentDTOResps)
-                .posts(postDTOResps)
+                .post(postDTOResps)
                 .build();
     }
 }

@@ -14,15 +14,13 @@ public class CommentMapper extends BaseMapper<Comment, CommentDTOResp>{
     @Override
     public CommentDTOResp toDTO(Comment comment) {
 
-        Set<DocumentDTOResp> documentDTOResps = comment.getDocuments().stream()
-                .map(documentMapper::toDTO)
-                .collect(Collectors.toSet());
+        DocumentDTOResp documentDTOResps = documentMapper.toDTO(comment.getDocument());
 
         PostDTOResp postDTOResp = postMapper.toDTO(comment.getPost());
 
         return CommentDTOResp.builder()
                 .id(comment.getId())
-                .documents(documentDTOResps)
+                .document(documentDTOResps)
                 .post(postDTOResp)
                 .build();
     }

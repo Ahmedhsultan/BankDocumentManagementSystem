@@ -22,8 +22,8 @@ public class Document {
     private String fileHash;
     @Column(name = "original_file_name")
     private String originalFileName;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private User user;
     @OneToOne(mappedBy = "document")
     private Post post;
     @OneToMany(mappedBy = "document")

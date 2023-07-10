@@ -17,14 +17,12 @@ public class PostMapper extends BaseMapper <Post, PostDTOResp> {
                 .map(commentMapper::toDTO)
                 .collect(Collectors.toSet());
 
-        Set<DocumentDTOResp> documentDTOResps = post.getDocuments().stream()
-                .map(documentMapper::toDTO)
-                .collect(Collectors.toSet());
+        DocumentDTOResp documentDTOResp = documentMapper.toDTO(post.getDocument());
 
         return PostDTOResp.builder()
                 .id(post.getId())
                 .comments(commentDTOResps)
-                .documents(documentDTOResps)
+                .document(documentDTOResp)
                 .build();
     }
 }

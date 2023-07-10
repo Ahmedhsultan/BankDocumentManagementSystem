@@ -10,5 +10,5 @@ import java.util.Set;
 public class CommentDTOResp {
     private Integer id;
     private PostDTOResp post;
-    private Set<DocumentDTOResp> documents;
+    private DocumentDTOResp document;
 }
