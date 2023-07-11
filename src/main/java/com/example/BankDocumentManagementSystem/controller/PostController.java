@@ -6,6 +6,7 @@ import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
 import com.example.BankDocumentManagementSystem.service.PostService;
 import com.example.BankDocumentManagementSystem.util.mapper.PostMapper;
 import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class PostController extends BaseController<Integer, Post, PostRepo, Post
     }
 
     @PostMapping("create")
+    //@HystrixCommand(fallbackMethod = "defaultGreeting")
     public ResponseEntity<String> create(@RequestParam("post") String body,
                                          @RequestParam("title") String title,
                                          @RequestParam("document") String documentName,
@@ -30,6 +32,7 @@ public class PostController extends BaseController<Integer, Post, PostRepo, Post
         return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }
     @GetMapping("view")
+    //@HystrixCommand(fallbackMethod = "defaultGreeting")
     public ResponseEntity<PostService.PostRes> view(@RequestParam("document") String documentName,
                                                     @RequestParam("user") String userName){
 

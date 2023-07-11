@@ -21,6 +21,7 @@ public class CommentController extends BaseController<Integer, Comment, CommentR
     }
 
     @PostMapping("create")
+    //@HystrixCommand(fallbackMethod = "defaultGreeting")
     public ResponseEntity<String> create(@RequestParam("comment") String body,
                                          @RequestParam("title") String title,
                                          @RequestParam("document") String documentName,
@@ -32,6 +33,7 @@ public class CommentController extends BaseController<Integer, Comment, CommentR
         return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }
     @GetMapping("view")
+    //@HystrixCommand(fallbackMethod = "defaultGreeting")
     public ResponseEntity<List<CommentService.CommentRes>> view(@RequestParam("document") String documentName,
                                                           @RequestParam("user") String userName){
 
