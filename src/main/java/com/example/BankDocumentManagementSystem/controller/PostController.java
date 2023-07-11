@@ -6,7 +6,6 @@ import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
 import com.example.BankDocumentManagementSystem.service.PostService;
 import com.example.BankDocumentManagementSystem.util.mapper.PostMapper;
 import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
