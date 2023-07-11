@@ -3,7 +3,6 @@ package com.example.BankDocumentManagementSystem.controller;
 import com.example.BankDocumentManagementSystem.dto.responce.UserDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.User;
 import com.example.BankDocumentManagementSystem.persistence.repository.UserRepo;
-import com.example.BankDocumentManagementSystem.service.DocumentService;
 import com.example.BankDocumentManagementSystem.service.UserService;
 import com.example.BankDocumentManagementSystem.util.mapper.UserMapper;
 import org.springframework.http.ResponseEntity;

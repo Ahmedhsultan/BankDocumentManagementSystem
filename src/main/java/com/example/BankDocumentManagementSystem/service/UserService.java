@@ -2,7 +2,6 @@ package com.example.BankDocumentManagementSystem.service;
 
 import com.example.BankDocumentManagementSystem.dto.responce.UserDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.User;
-import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
 import com.example.BankDocumentManagementSystem.persistence.repository.UserRepo;
 import com.example.BankDocumentManagementSystem.util.mapper.UserMapper;
 import org.springframework.stereotype.Service;

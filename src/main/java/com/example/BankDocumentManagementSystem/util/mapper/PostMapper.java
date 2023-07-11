@@ -1,7 +1,6 @@
 package com.example.BankDocumentManagementSystem.util.mapper;
 
 import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
-import com.example.BankDocumentManagementSystem.dto.responce.DocumentDTOResp;
 import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.Post;
 import org.springframework.stereotype.Component;
@@ -17,12 +16,10 @@ public class PostMapper extends BaseMapper <Post, PostDTOResp> {
                 .map(commentMapper::toDTO)
                 .collect(Collectors.toSet());
 
-        DocumentDTOResp documentDTOResp = documentMapper.toDTO(post.getDocument());
 
         return PostDTOResp.builder()
                 .id(post.getId())
                 .comments(commentDTOResps)
-                .document(documentDTOResp)
                 .build();
     }
 }

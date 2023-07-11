@@ -24,8 +24,8 @@ public class Document {
     private String originalFileName;
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    private User user;
-    @OneToOne(mappedBy = "document")
+    @OneToOne
     private Post post;
-    @OneToMany(mappedBy = "document")
+    @OneToMany
     private Set<Comment> comments;
 }

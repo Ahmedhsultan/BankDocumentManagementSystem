@@ -3,7 +3,6 @@ package com.example.BankDocumentManagementSystem.util.mapper;
 import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
 import com.example.BankDocumentManagementSystem.dto.responce.DocumentDTOResp;
 import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
-import com.example.BankDocumentManagementSystem.dto.responce.UserDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
 import org.springframework.stereotype.Component;
 

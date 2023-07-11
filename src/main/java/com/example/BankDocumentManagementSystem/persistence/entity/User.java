@@ -26,7 +26,7 @@ public class User {
     private Integer age;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Document> documents = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Post> posts = new HashSet<>();
 }
 

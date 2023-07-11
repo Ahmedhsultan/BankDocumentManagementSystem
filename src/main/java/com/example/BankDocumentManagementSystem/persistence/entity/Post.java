@@ -17,11 +17,6 @@ import java.util.Set;
 public class Post {
     @Id
     private Integer id;
-    @OneToOne(fetch = FetchType.EAGER)
-    private Document document;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Comment> comments;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }
