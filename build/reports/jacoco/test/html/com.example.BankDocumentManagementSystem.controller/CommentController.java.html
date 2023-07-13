@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.controller</a> &gt; <span class="el_source">CommentController.java</span></div><h1>CommentController.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.controller;
+
+import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
+import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
+import com.example.BankDocumentManagementSystem.persistence.repository.CommentRepo;
+import com.example.BankDocumentManagementSystem.service.CommentService;
+import com.example.BankDocumentManagementSystem.util.mapper.CommentMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;comment&quot;)
+public class CommentController extends BaseController&lt;Integer, Comment, CommentRepo, CommentDTOResp, CommentMapper, CommentService&gt; {
+    private CommentService commentService;
+<span class="fc" id="L19">    public CommentController(CommentService commentService){</span>
+<span class="fc" id="L20">        this.commentService = commentService;</span>
+<span class="fc" id="L21">    }</span>
+
+    @PostMapping(&quot;create&quot;)
+    //@HystrixCommand(fallbackMethod = &quot;defaultGreeting&quot;)
+    public ResponseEntity&lt;String&gt; create(@RequestParam(&quot;comment&quot;) String body,
+                                         @RequestParam(&quot;title&quot;) String title,
+                                         @RequestParam(&quot;document&quot;) String documentName,
+                                         @RequestParam(&quot;user&quot;) String userName ) {
+
+<span class="fc" id="L30">        DocumentParam documentParam = new DocumentParam(documentName, userName);</span>
+<span class="fc" id="L31">        commentService.create(title, body, documentParam);</span>
+
+<span class="fc" id="L33">        return ResponseEntity.status(HttpStatus.CREATED).body(&quot;Success&quot;);</span>
+    }
+    @GetMapping(&quot;view&quot;)
+    //@HystrixCommand(fallbackMethod = &quot;defaultGreeting&quot;)
+    public ResponseEntity&lt;List&lt;CommentService.CommentRes&gt;&gt; view(@RequestParam(&quot;document&quot;) String documentName,
+                                                          @RequestParam(&quot;user&quot;) String userName){
+
+<span class="fc" id="L40">        DocumentParam documentParam = new DocumentParam(documentName, userName);</span>
+<span class="fc" id="L41">        List&lt;CommentService.CommentRes&gt; commentDTOResp = commentService.findByDocumentName(documentParam);</span>
+
+<span class="fc" id="L43">        return ResponseEntity.ok(commentDTOResp);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

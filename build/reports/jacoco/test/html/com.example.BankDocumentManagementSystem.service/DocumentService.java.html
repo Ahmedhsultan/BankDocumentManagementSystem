@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.service</a> &gt; <span class="el_source">DocumentService.java</span></div><h1>DocumentService.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.service;
+
+import com.example.BankDocumentManagementSystem.dto.responce.DocumentDTOResp;
+import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
+import com.example.BankDocumentManagementSystem.persistence.entity.Document;
+import com.example.BankDocumentManagementSystem.persistence.entity.User;
+import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.UserRepo;
+import com.example.BankDocumentManagementSystem.util.constant.Constant;
+import com.example.BankDocumentManagementSystem.util.mapper.DocumentMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class DocumentService extends BaseService&lt;Document, DocumentRepo, Integer, DocumentDTOResp, DocumentMapper&gt; {
+
+<span class="fc" id="L31">    private String uploadPath = Constant.UPLOAD_FILE_PATH;</span>
+    private DocumentRepo documentRepo;
+    private UserRepo userRepo;
+    private MessageDigest messageDigest;
+    private Class&lt;?&gt; fileSystemClass;
+<span class="fc" id="L36">    public DocumentService(DocumentRepo documentRepo, UserRepo userRepo){</span>
+<span class="fc" id="L37">        this.documentRepo = documentRepo;</span>
+<span class="fc" id="L38">        this.userRepo = userRepo;</span>
+        try {
+<span class="fc" id="L40">            this.messageDigest = MessageDigest.getInstance(&quot;MD5&quot;);</span>
+<span class="nc" id="L41">        } catch (NoSuchAlgorithmException e) {</span>
+<span class="nc" id="L42">            throw new RuntimeException(e);</span>
+<span class="fc" id="L43">        }</span>
+<span class="fc" id="L44">        fileSystemClass = FileSystemResource.class;</span>
+<span class="fc" id="L45">    }</span>
+
+    @Transactional
+    public void update(DocumentParam documentParam, InputStream inputStream){
+<span class="nc" id="L49">        delete(documentParam);</span>
+<span class="nc" id="L50">        upload(documentParam, inputStream);</span>
+<span class="nc" id="L51">    }</span>
+    public void delete(DocumentParam documentParam){
+        //Find hash from db
+<span class="nc" id="L54">        String fileHash = getFileHash(documentParam);</span>
+
+        //URL which file locate in
+<span class="nc" id="L57">        Path path = Paths.get(uploadPath, fileHash);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if(!Files.exists(path))</span>
+<span class="nc" id="L59">            throw new DocumentFailedException(&quot;File not exist!!&quot;);</span>
+
+        //Delete document from table of documents
+<span class="nc" id="L62">        User user = getUser(documentParam.userName());</span>
+<span class="nc" id="L63">        deleteDocumentFromTable(user, fileHash);</span>
+
+        //Check if no user use this file delete it from server
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(!isFileUsedFromAnotherUser(fileHash)){</span>
+            try {
+<span class="nc" id="L68">                Files.delete(path);</span>
+<span class="nc" id="L69">            } catch (IOException e) {</span>
+<span class="nc" id="L70">                e.printStackTrace();</span>
+<span class="nc" id="L71">                throw new DocumentFailedException(&quot;Server Failed to delete&quot;);</span>
+<span class="nc" id="L72">            }</span>
+        }
+<span class="nc" id="L74">    }</span>
+    public Resource download(DocumentParam documentParam){
+        //Find hash from db
+<span class="fc" id="L77">        String fileHash = getFileHash(documentParam);</span>
+        //Get file from server
+<span class="fc" id="L79">        Path filePath = Paths.get(uploadPath, fileHash);</span>
+<span class="fc" id="L80">        Resource resource = getFileSystemResource(filePath.toFile());</span>
+        //Check if file exist
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if(!resource.exists())</span>
+<span class="nc" id="L83">            throw new DocumentFailedException(&quot;File not exist!!&quot;);</span>
+
+<span class="fc" id="L85">        return resource;</span>
+    }
+    public void upload(DocumentParam documentParam, InputStream inputStream){
+<span class="fc" id="L88">        String userName = documentParam.userName();</span>
+<span class="fc" id="L89">        String fileName = documentParam.fileName();</span>
+
+        //Hash file to make it unique file per server
+        String fileHash;
+        try {
+<span class="fc" id="L94">            fileHash = hashFile(inputStream.readAllBytes());</span>
+<span class="nc" id="L95">        } catch (NoSuchAlgorithmException | IOException e) {</span>
+<span class="nc" id="L96">            throw new DocumentFailedException(&quot;Server Failed to upload!!&quot;);</span>
+<span class="fc" id="L97">        }</span>
+        //URL which file locate in
+<span class="fc" id="L99">        String url = uploadPath + &quot;/&quot; + fileHash;</span>
+        //Save document in this folder
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (!isFileSaved(url))</span>
+<span class="nc" id="L102">            saveDocumentInServer(inputStream, url);</span>
+        //Save document name and url and user in database
+<span class="fc" id="L104">        User user = getUser(userName);</span>
+<span class="fc" id="L105">        saveDocumentInDatabase(fileHash, fileName, user, url);</span>
+<span class="fc" id="L106">    }</span>
+
+
+    /**
+     * helpful methods
+     */
+    private void deleteDocumentFromTable(User user, String fileHash){
+<span class="nc" id="L113">        Document document = user.getDocuments().stream()</span>
+<span class="nc" id="L114">                .filter(x -&gt; x.getFileHash().equals(fileHash))</span>
+<span class="nc" id="L115">                .findFirst().get();</span>
+
+<span class="nc" id="L117">        documentRepo.delete(document);</span>
+<span class="nc" id="L118">    }</span>
+    private boolean isFileUsedFromAnotherUser(String fileHash){
+<span class="nc" id="L120">        long count = documentRepo.findDocumentByFileHash(fileHash).stream().count();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (count&gt;0)</span>
+<span class="nc" id="L122">            return true;</span>
+<span class="nc" id="L123">        return false;</span>
+    }
+    private String getFileHash(DocumentParam documentParam){
+<span class="fc" id="L126">        User user = getUser(documentParam.userName());</span>
+<span class="fc" id="L127">        Set&lt;Document&gt; documents = user.getDocuments();</span>
+<span class="fc" id="L128">        Optional&lt;Document&gt; optionalDocument = documents.stream()</span>
+<span class="fc" id="L129">                .filter(x -&gt; x.getOriginalFileName().equals(documentParam.fileName()))</span>
+<span class="fc" id="L130">                .findFirst();</span>
+
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">        if (!optionalDocument.isPresent())</span>
+<span class="nc" id="L133">            throw new DocumentFailedException(&quot;Document not exist!!&quot;);</span>
+
+<span class="fc" id="L135">        return optionalDocument.get().getFileHash();</span>
+    }
+    private User getUser(String userName){
+<span class="fc" id="L138">        Optional&lt;User&gt; userOptional = userRepo.findByUserName(userName);</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (!userOptional.isPresent())</span>
+<span class="nc" id="L140">            throw new DocumentFailedException(&quot;Unavailable user!!&quot;);</span>
+
+<span class="fc" id="L142">        return userOptional.get();</span>
+    }
+    private String hashFile(byte[] fileBytes) throws NoSuchAlgorithmException {
+<span class="fc" id="L145">        byte[] hash = getMessageDigest().digest(fileBytes);</span>
+<span class="fc" id="L146">        String checksum = new BigInteger(1, hash).toString(16);</span>
+
+<span class="fc" id="L148">        return checksum;</span>
+    }
+    private boolean isFileSaved(String url){
+<span class="fc" id="L151">        Path filePath = Paths.get(url);</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        if(Files.exists(filePath))</span>
+<span class="fc" id="L153">            return true;</span>
+
+<span class="nc" id="L155">        return false;</span>
+    }
+    private void saveDocumentInServer(InputStream inputStream, String url){
+        //Get the folder path in server
+<span class="nc" id="L159">        Path outputPath = Path.of(url);</span>
+
+        // Using OutputStream to save the file
+<span class="nc" id="L162">        try (OutputStream outputStream = new FileOutputStream(outputPath.toFile())) {</span>
+            // Copy the input stream to the output stream
+<span class="nc" id="L164">            byte[] buffer = new byte[8192];</span>
+            int bytesRead;
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            while ((bytesRead = inputStream.read(buffer)) != -1) {</span>
+<span class="nc" id="L167">                outputStream.write(buffer, 0, bytesRead);</span>
+            }
+<span class="nc" id="L169">        } catch (IOException e) {</span>
+<span class="nc" id="L170">            e.printStackTrace();</span>
+<span class="nc" id="L171">            throw new DocumentFailedException(&quot;Server Failed to upload&quot;);</span>
+<span class="nc" id="L172">        }</span>
+<span class="nc" id="L173">    }</span>
+    private void saveDocumentInDatabase(String fileHash, String fileName, User user, String url){
+<span class="fc" id="L175">        Document document = Document.builder()</span>
+<span class="fc" id="L176">                .url(url)</span>
+<span class="fc" id="L177">                .fileHash(fileHash)</span>
+<span class="fc" id="L178">                .originalFileName(fileName)</span>
+<span class="fc" id="L179">                .build();</span>
+
+//        Document document1 = documentRepo.save(document);
+<span class="fc" id="L182">        user.getDocuments().add(document);</span>
+<span class="fc" id="L183">        userRepo.save(user);</span>
+//        documentRepo.save(document);
+<span class="fc" id="L185">    }</span>
+    private MessageDigest getMessageDigest(){
+<span class="fc" id="L187">        return messageDigest;</span>
+    }
+    public void setMessageDigest(MessageDigest messageDigest){
+<span class="fc" id="L190">        this.messageDigest = messageDigest;</span>
+<span class="fc" id="L191">    }</span>
+    public Resource getFileSystemResource(File file){
+        try {
+<span class="fc" id="L194">            return (Resource) fileSystemClass.getConstructor(File.class).newInstance(file);</span>
+<span class="nc" id="L195">        } catch (NoSuchMethodException e) {</span>
+<span class="nc" id="L196">            throw new RuntimeException(e);</span>
+<span class="nc" id="L197">        } catch (InvocationTargetException e) {</span>
+<span class="nc" id="L198">            throw new RuntimeException(e);</span>
+<span class="nc" id="L199">        } catch (InstantiationException e) {</span>
+<span class="nc" id="L200">            throw new RuntimeException(e);</span>
+<span class="nc" id="L201">        } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L202">            throw new RuntimeException(e);</span>
+        }
+    }
+    public void setFileSystemResourceClass(Class&lt;?&gt; fileSystemClass){
+<span class="fc" id="L206">        this.fileSystemClass = fileSystemClass;</span>
+<span class="fc" id="L207">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

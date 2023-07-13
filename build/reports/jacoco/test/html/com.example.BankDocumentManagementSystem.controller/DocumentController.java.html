@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.controller</a> &gt; <span class="el_source">DocumentController.java</span></div><h1>DocumentController.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.controller;
+
+import com.example.BankDocumentManagementSystem.dto.responce.DocumentDTOResp;
+import com.example.BankDocumentManagementSystem.persistence.entity.Document;
+import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
+import com.example.BankDocumentManagementSystem.service.DocumentService;
+import com.example.BankDocumentManagementSystem.util.mapper.DocumentMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
+
+@RestController
+@RequestMapping(&quot;document&quot;)
+public class DocumentController extends BaseController&lt;Integer, Document, DocumentRepo, DocumentDTOResp, DocumentMapper, DocumentService&gt; {
+    private DocumentService documentService;
+<span class="fc" id="L23">    public DocumentController(DocumentService documentService){</span>
+<span class="fc" id="L24">        this.documentService = documentService;</span>
+<span class="fc" id="L25">    }</span>
+
+    @DeleteMapping(&quot;delete&quot;)
+    public ResponseEntity&lt;String&gt; delete(@RequestParam(&quot;username&quot;) String userName,
+                                         @RequestParam(&quot;filename&quot;) String fileName){
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Delete resource from server
+<span class="fc" id="L37">        var document = new DocumentParam(fileName, userName);</span>
+<span class="fc" id="L38">        documentService.delete(document);</span>
+
+<span class="fc" id="L40">        return ResponseEntity.ok(&quot;Success&quot;);</span>
+    }
+
+    @PostMapping(&quot;upload&quot;)
+    public ResponseEntity&lt;String&gt; upload(@RequestParam(&quot;file&quot;)MultipartFile multipartFile,
+                @RequestParam(&quot;username&quot;) String userName){
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Check if file is empty
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (multipartFile.isEmpty())</span>
+<span class="nc" id="L54">            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(&quot;Please select a file to upload.&quot;);</span>
+
+        //Get file name and inputstream and run upload method
+        try {
+            //Get file date
+<span class="fc" id="L59">            String fileName = multipartFile.getOriginalFilename();</span>
+<span class="fc" id="L60">            InputStream inputStream = multipartFile.getInputStream();</span>
+
+            //Add file to system and database
+<span class="fc" id="L63">            var document = new DocumentParam(fileName, userName);</span>
+<span class="fc" id="L64">            documentService.upload(document, inputStream);</span>
+<span class="nc" id="L65">        } catch (Exception e) {</span>
+<span class="nc" id="L66">            e.printStackTrace();</span>
+<span class="nc" id="L67">            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(&quot;Failed Operation!!&quot;);</span>
+<span class="fc" id="L68">        }</span>
+
+<span class="fc" id="L70">        return ResponseEntity.status(HttpStatus.CREATED).body(&quot;Success&quot;);</span>
+    }
+
+    @PostMapping(&quot;update&quot;)
+    public ResponseEntity&lt;String&gt; update(@RequestParam(&quot;file&quot;)MultipartFile multipartFile,
+                                         @RequestParam(&quot;username&quot;) String userName){
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Check if file is empty
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (multipartFile.isEmpty())</span>
+<span class="nc" id="L84">            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(&quot;Please select a file to upload.&quot;);</span>
+
+        //Get file name and inputstream and run upload method
+        try {
+            //Get file date
+<span class="fc" id="L89">            String fileName = multipartFile.getOriginalFilename();</span>
+<span class="fc" id="L90">            InputStream inputStream = multipartFile.getInputStream();</span>
+
+            //Add file to system and database
+<span class="fc" id="L93">            var document = new DocumentParam(fileName, userName);</span>
+<span class="fc" id="L94">            documentService.update(document, inputStream);</span>
+<span class="nc" id="L95">        } catch (Exception e) {</span>
+<span class="nc" id="L96">            e.printStackTrace();</span>
+<span class="nc" id="L97">            return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(&quot;Failed Operation!!&quot;);</span>
+<span class="fc" id="L98">        }</span>
+
+<span class="fc" id="L100">        return ResponseEntity.status(HttpStatus.CREATED).body(&quot;Success&quot;);</span>
+    }
+
+    @GetMapping(&quot;download&quot;)
+    public ResponseEntity&lt;Resource&gt; download(@RequestParam(&quot;username&quot;) String userName,
+                                           @RequestParam(&quot;filename&quot;) String fileName) {
+        /**
+         * In case we use spring security we will get username from JWT token
+         * But spring security isn't covered in this task
+         * So we take username as parameter
+         */
+
+        //Get resource from server
+<span class="fc" id="L113">        var document = new DocumentParam(fileName, userName);</span>
+<span class="fc" id="L114">        Resource resource = documentService.download(document);</span>
+
+        // Set the response headers
+<span class="fc" id="L117">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L118">        headers.add(HttpHeaders.CONTENT_DISPOSITION, &quot;attachment; filename=&quot; + fileName);</span>
+<span class="fc" id="L119">        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);</span>
+
+<span class="fc" id="L121">        return ResponseEntity.ok().headers(headers).body(resource);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

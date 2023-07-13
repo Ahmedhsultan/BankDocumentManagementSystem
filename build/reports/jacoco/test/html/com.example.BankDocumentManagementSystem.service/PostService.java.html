@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.service</a> &gt; <span class="el_source">PostService.java</span></div><h1>PostService.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.service;
+
+import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
+import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
+import com.example.BankDocumentManagementSystem.persistence.entity.Document;
+import com.example.BankDocumentManagementSystem.persistence.entity.Post;
+import com.example.BankDocumentManagementSystem.persistence.entity.User;
+import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.UserRepo;
+import com.example.BankDocumentManagementSystem.util.WebClientMethods;
+import com.example.BankDocumentManagementSystem.util.mapper.PostMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class PostService extends BaseService&lt;Post, PostRepo, Integer, PostDTOResp, PostMapper&gt; {
+<span class="fc" id="L22">    private String apiURL = &quot;https://jsonplaceholder.typicode.com&quot;;</span>
+    private PostRepo postRepo;
+    private UserRepo userRepo;
+    private DocumentRepo documentRepo;
+    private WebClientMethods&lt;PostRes&gt; webClientMethods;
+<span class="fc" id="L27">    public PostService(PostRepo postRepo, UserRepo userRepo, DocumentRepo documentRepo){</span>
+<span class="fc" id="L28">        this.postRepo = postRepo;</span>
+<span class="fc" id="L29">        this.userRepo = userRepo;</span>
+<span class="fc" id="L30">        this.documentRepo = documentRepo;</span>
+<span class="fc" id="L31">        this.webClientMethods = new WebClientMethods&lt;&gt;();</span>
+<span class="fc" id="L32">    }</span>
+
+    public void create(String title, String body, DocumentParam documentParam) {
+        //Get user and get document from this user
+<span class="fc" id="L36">        User user = getUser(documentParam.userName());</span>
+<span class="fc" id="L37">        Set&lt;Document&gt; documents = user.getDocuments();</span>
+
+<span class="fc" id="L39">        Optional&lt;Document&gt; optionalDocument = documents.stream()</span>
+<span class="fc" id="L40">                .filter(x -&gt; x.getOriginalFileName().equals(documentParam.fileName()))</span>
+<span class="fc" id="L41">                .findFirst();</span>
+
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (!optionalDocument.isPresent())</span>
+<span class="fc" id="L44">            throw new DocumentFailedException(&quot;Document not exist!!&quot;);</span>
+
+        //Get id of post related to this document
+<span class="fc" id="L47">        Document document = optionalDocument.get();</span>
+
+        //Save post in 3rd part
+<span class="fc" id="L50">        Mono&lt;PostRes&gt; response = getWebClient().post(apiURL,</span>
+<span class="fc" id="L51">                &quot;/posts&quot;, new PostReq(title, body, user.getId())</span>
+                        , PostRes.class);
+
+<span class="fc" id="L54">        int postId = response.block().id;</span>
+
+        //Add post to document
+<span class="fc" id="L57">        savePostInDatabase(postId, document, user);</span>
+<span class="fc" id="L58">    }</span>
+    public PostRes findByDocumentName(DocumentParam documentParam) {
+        //Get user and get document from this user
+<span class="fc" id="L61">        User user = getUser(documentParam.userName());</span>
+<span class="fc" id="L62">        Set&lt;Document&gt; documents = user.getDocuments();</span>
+
+<span class="fc" id="L64">        Optional&lt;Document&gt; optionalDocument = documents.stream()</span>
+<span class="fc" id="L65">                .filter(x -&gt; x.getOriginalFileName().equals(documentParam.fileName()))</span>
+<span class="fc" id="L66">                .findFirst();</span>
+
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (!optionalDocument.isPresent())</span>
+<span class="nc" id="L69">            throw new DocumentFailedException(&quot;Document not exist!!&quot;);</span>
+
+        //Get id of post related to this document
+<span class="fc" id="L72">        Document document = optionalDocument.get();</span>
+<span class="fc" id="L73">        Integer postId = document.getPost().getId();</span>
+
+        //Get post from 3rd part
+<span class="fc" id="L76">        Mono&lt;PostRes&gt; response = getWebClient().get(apiURL, &quot;/posts/{postId}&quot;,</span>
+<span class="fc" id="L77">                postId</span>
+                , PostRes.class);
+
+<span class="fc" id="L80">        return response.block();</span>
+    }
+
+<span class="fc" id="L83">    public record PostReq (String title, String body, int userId){}</span>
+<span class="fc" id="L84">    public record PostRes (String title, String body, int userId, int id){}</span>
+    private void savePostInDatabase(int postId, Document document, User user){
+<span class="fc" id="L86">        Post post = Post.builder()</span>
+<span class="fc" id="L87">                .id(postId)</span>
+<span class="fc" id="L88">                .build();</span>
+
+<span class="fc" id="L90">        postRepo.save(post);</span>
+
+<span class="fc" id="L92">        document.setPost(post);</span>
+<span class="fc" id="L93">        documentRepo.save(document);</span>
+<span class="fc" id="L94">    }</span>
+    private User getUser(String userName){
+<span class="fc" id="L96">        Optional&lt;User&gt; userOptional = userRepo.findByUserName(userName);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (!userOptional.isPresent())</span>
+<span class="nc" id="L98">            throw new DocumentFailedException(&quot;Unavailable user!!&quot;);</span>
+
+<span class="fc" id="L100">        return userOptional.get();</span>
+    }
+    private WebClientMethods getWebClient(){
+<span class="fc" id="L103">        return webClientMethods;</span>
+    }
+    public void setWebClientMethods(WebClientMethods webClientMethods){
+<span class="fc" id="L106">        this.webClientMethods = webClientMethods;</span>
+<span class="fc" id="L107">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

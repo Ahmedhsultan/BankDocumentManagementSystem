@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.controller</a> &gt; <span class="el_source">BaseController.java</span></div><h1>BaseController.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.controller;
+
+import com.example.BankDocumentManagementSystem.service.BaseService;
+import com.example.BankDocumentManagementSystem.util.mapper.BaseMapper;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
+<span class="fc" id="L14">public class BaseController &lt;ID, Entity, Repo extends JpaRepository&lt;Entity, ID&gt;, DTO, Mapper extends BaseMapper&lt;Entity, DTO&gt;, Service extends BaseService&lt;Entity, Repo, ID, DTO, Mapper&gt;&gt;{</span>
+    @Autowired
+    protected ObjectFactory&lt;Service&gt; service;
+
+    @GetMapping(&quot;all&quot;)
+    public List&lt;DTO&gt; getAll(){
+<span class="nc" id="L20">        return getService().findAll();</span>
+    }
+    @GetMapping
+    public DTO getById(@RequestParam ID id){
+<span class="nc" id="L24">        return getService().findById(id);</span>
+    }
+    @DeleteMapping
+    public void deleteById(@RequestParam ID id){
+<span class="nc" id="L28">        getService().removeById(id);</span>
+<span class="nc" id="L29">    }</span>
+
+    protected Service getService(){
+<span class="nc" id="L32">        return service.getObject();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

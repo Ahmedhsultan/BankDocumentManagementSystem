@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebClientMethods.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.util</a> &gt; <span class="el_source">WebClientMethods.java</span></div><h1>WebClientMethods.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.util;
+
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+<span class="fc" id="L6">public class WebClientMethods &lt;T&gt;{</span>
+    public Mono&lt;T&gt; post(String url, String resource, Object object, Class&lt;T&gt; returnType){
+<span class="fc" id="L8">        WebClient client = WebClient.create(url);</span>
+<span class="fc" id="L9">        WebClient.UriSpec&lt;WebClient.RequestBodySpec&gt; uriSpec = client.post();</span>
+<span class="fc" id="L10">        WebClient.RequestBodySpec bodySpec = uriSpec.uri(resource);</span>
+<span class="fc" id="L11">        WebClient.RequestHeadersSpec&lt;?&gt; headersSpec = bodySpec.body(</span>
+<span class="fc" id="L12">                Mono.just(object), object.getClass());</span>
+<span class="fc" id="L13">        Mono&lt;T&gt; response = headersSpec.retrieve()</span>
+<span class="fc" id="L14">                .bodyToMono(returnType);</span>
+
+<span class="fc" id="L16">        return response;</span>
+    }
+    public Mono&lt;T&gt; get(String url, String resouce, int postId, Class&lt;T&gt; returnType){
+<span class="nc" id="L19">        WebClient client = WebClient.create(url);</span>
+<span class="nc" id="L20">        WebClient.RequestHeadersSpec&lt;?&gt; uriSpec = client.get().uri(resouce, postId);</span>
+<span class="nc" id="L21">        Mono&lt;T&gt; response = uriSpec.retrieve()</span>
+<span class="nc" id="L22">                .bodyToMono(returnType);</span>
+
+<span class="nc" id="L24">        return response;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

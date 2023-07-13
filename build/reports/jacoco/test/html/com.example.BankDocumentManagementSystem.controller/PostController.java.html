@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.controller</a> &gt; <span class="el_source">PostController.java</span></div><h1>PostController.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.controller;
+
+import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
+import com.example.BankDocumentManagementSystem.persistence.entity.Post;
+import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
+import com.example.BankDocumentManagementSystem.service.PostService;
+import com.example.BankDocumentManagementSystem.util.mapper.PostMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping(&quot;post&quot;)
+public class PostController extends BaseController&lt;Integer, Post, PostRepo, PostDTOResp, PostMapper, PostService&gt; {
+    private PostService postService;
+<span class="fc" id="L17">    public PostController(PostService postService){</span>
+<span class="fc" id="L18">        this.postService = postService;</span>
+<span class="fc" id="L19">    }</span>
+
+    @PostMapping(&quot;create&quot;)
+    //@HystrixCommand(fallbackMethod = &quot;defaultGreeting&quot;)
+    public ResponseEntity&lt;String&gt; create(@RequestParam(&quot;post&quot;) String body,
+                                         @RequestParam(&quot;title&quot;) String title,
+                                         @RequestParam(&quot;document&quot;) String documentName,
+                                         @RequestParam(&quot;user&quot;) String userName ) {
+
+<span class="fc" id="L28">        DocumentParam documentParam = new DocumentParam(documentName, userName);</span>
+<span class="fc" id="L29">        postService.create(title, body, documentParam);</span>
+
+<span class="fc" id="L31">        return ResponseEntity.status(HttpStatus.CREATED).body(&quot;Success&quot;);</span>
+    }
+    @GetMapping(&quot;view&quot;)
+    //@HystrixCommand(fallbackMethod = &quot;defaultGreeting&quot;)
+    public ResponseEntity&lt;PostService.PostRes&gt; view(@RequestParam(&quot;document&quot;) String documentName,
+                                                    @RequestParam(&quot;user&quot;) String userName){
+
+<span class="fc" id="L38">        DocumentParam documentParam = new DocumentParam(documentName, userName);</span>
+<span class="fc" id="L39">        PostService.PostRes postDTO = postService.findByDocumentName(documentParam);</span>
+
+<span class="fc" id="L41">        return ResponseEntity.ok(postDTO);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

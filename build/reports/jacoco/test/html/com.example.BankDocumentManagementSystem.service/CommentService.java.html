@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankDocumentManagementSystem</a> &gt; <a href="index.source.html" class="el_package">com.example.BankDocumentManagementSystem.service</a> &gt; <span class="el_source">CommentService.java</span></div><h1>CommentService.java</h1><pre class="source lang-java linenums">package com.example.BankDocumentManagementSystem.service;
+
+import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
+import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
+import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
+import com.example.BankDocumentManagementSystem.persistence.entity.Document;
+import com.example.BankDocumentManagementSystem.persistence.entity.User;
+import com.example.BankDocumentManagementSystem.persistence.repository.CommentRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.DocumentRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
+import com.example.BankDocumentManagementSystem.persistence.repository.UserRepo;
+import com.example.BankDocumentManagementSystem.util.WebClientMethods;
+import com.example.BankDocumentManagementSystem.util.mapper.CommentMapper;
+import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Service
+public class CommentService extends BaseService&lt;Comment, CommentRepo, Integer, CommentDTOResp, CommentMapper&gt;{
+<span class="fc" id="L26">    private String apiURL = &quot;https://jsonplaceholder.typicode.com&quot;;</span>
+    private PostRepo postRepo;
+    private CommentRepo commentRepo;
+    private UserRepo userRepo;
+    private DocumentRepo documentRepo;
+    private WebClientMethods&lt;CommentRes&gt; webClientMethods;
+<span class="fc" id="L32">    public CommentService(PostRepo postRepo, UserRepo userRepo, DocumentRepo documentRepo, CommentRepo commentRepo){</span>
+<span class="fc" id="L33">        this.postRepo = postRepo;</span>
+<span class="fc" id="L34">        this.userRepo = userRepo;</span>
+<span class="fc" id="L35">        this.documentRepo = documentRepo;</span>
+<span class="fc" id="L36">        this.commentRepo = commentRepo;</span>
+<span class="fc" id="L37">        this.webClientMethods = new WebClientMethods&lt;&gt;();</span>
+<span class="fc" id="L38">    }</span>
+
+    public void create(String title, String body, DocumentParam documentParam) {
+        //Get user and get document from this user
+<span class="fc" id="L42">        User user = getUser(documentParam.userName());</span>
+<span class="fc" id="L43">        Set&lt;Document&gt; documents = user.getDocuments();</span>
+
+<span class="fc" id="L45">        Optional&lt;Document&gt; optionalDocument = documents.stream()</span>
+<span class="fc" id="L46">                .filter(x -&gt; x.getOriginalFileName().equals(documentParam.fileName()))</span>
+<span class="fc" id="L47">                .findFirst();</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (!optionalDocument.isPresent())</span>
+<span class="fc" id="L50">            throw new DocumentFailedException(&quot;Document not exist!!&quot;);</span>
+
+        //Get id of post related to this document
+<span class="fc" id="L53">        Document document = optionalDocument.get();</span>
+
+        //Save CommentRes in 3rd part
+<span class="fc" id="L56">        Mono&lt;CommentRes&gt; response = getWebClient().post(apiURL,</span>
+<span class="fc" id="L57">                &quot;/comments&quot;, new CommentReq(title, body, user.getId())</span>
+                , CommentRes.class);
+
+<span class="fc" id="L60">        int commentId = response.block().id;</span>
+
+        //Add CommentRes to document
+<span class="fc" id="L63">        saveCommentInDatabase(commentId, document, user);</span>
+<span class="fc" id="L64">    }</span>
+    public List&lt;CommentRes&gt; findByDocumentName(DocumentParam documentParam) {
+        //Get user and get document from this user
+<span class="fc" id="L67">        User user = getUser(documentParam.userName());</span>
+<span class="fc" id="L68">        Set&lt;Document&gt; documents = user.getDocuments();</span>
+
+<span class="fc" id="L70">        Optional&lt;Document&gt; optionalDocument = documents.stream()</span>
+<span class="fc" id="L71">                .filter(x -&gt; x.getOriginalFileName().equals(documentParam.fileName()))</span>
+<span class="fc" id="L72">                .findFirst();</span>
+
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (!optionalDocument.isPresent())</span>
+<span class="nc" id="L75">            throw new DocumentFailedException(&quot;Document not exist!!&quot;);</span>
+
+        //Get id of CommentRes related to this document
+<span class="fc" id="L78">        Document document = optionalDocument.get();</span>
+<span class="fc" id="L79">        Set&lt;Integer&gt; commentsId = document.getComments().stream()</span>
+<span class="fc" id="L80">                .map(x -&gt; x.getId())</span>
+<span class="fc" id="L81">                .collect(Collectors.toSet());</span>
+
+        //Get comments from 3rd part
+<span class="fc" id="L84">        List&lt;CommentRes&gt; comments = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (int id : commentsId){</span>
+<span class="fc" id="L86">            Mono&lt;CommentRes&gt; response = getWebClient().get(apiURL, &quot;/comments/{Id}&quot;,</span>
+                    id, CommentRes.class);
+<span class="fc" id="L88">            comments.add(response.block());</span>
+<span class="fc" id="L89">        }</span>
+
+<span class="fc" id="L91">        return comments;</span>
+    }
+
+<span class="pc" id="L94">    public record CommentReq (String title, String body, int userId){}</span>
+<span class="fc" id="L95">    public record CommentRes (String title, String body, int userId, int id){}</span>
+    private void saveCommentInDatabase(int commentId, Document document, User user){
+<span class="fc" id="L97">        Comment comment = Comment.builder()</span>
+<span class="fc" id="L98">                .id(commentId)</span>
+<span class="fc" id="L99">                .build();</span>
+
+<span class="fc" id="L101">        commentRepo.save(comment);</span>
+
+<span class="fc" id="L103">        document.getComments().add(comment);</span>
+<span class="fc" id="L104">        documentRepo.save(document);</span>
+<span class="fc" id="L105">    }</span>
+    private User getUser(String userName){
+<span class="fc" id="L107">        Optional&lt;User&gt; userOptional = userRepo.findByUserName(userName);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (!userOptional.isPresent())</span>
+<span class="nc" id="L109">            throw new DocumentFailedException(&quot;Unavailable user!!&quot;);</span>
+
+<span class="fc" id="L111">        return userOptional.get();</span>
+    }
+    private WebClientMethods getWebClient(){
+<span class="fc" id="L114">        return webClientMethods;</span>
+    }
+    public void setWebClientMethods(WebClientMethods webClientMethods){
+<span class="fc" id="L117">        this.webClientMethods = webClientMethods;</span>
+<span class="fc" id="L118">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
