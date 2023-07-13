@@ -14,10 +14,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,9 +31,17 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
     private String uploadPath = Constant.UPLOAD_FILE_PATH;
     private DocumentRepo documentRepo;
     private UserRepo userRepo;
+    private MessageDigest messageDigest;
+    private Class<?> fileSystemClass;
     public DocumentService(DocumentRepo documentRepo, UserRepo userRepo){
         this.documentRepo = documentRepo;
         this.userRepo = userRepo;
+        try {
+            this.messageDigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        fileSystemClass = FileSystemResource.class;
     }
 
     @Transactional
@@ -71,7 +77,7 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         String fileHash = getFileHash(documentParam);
         //Get file from server
         Path filePath = Paths.get(uploadPath, fileHash);
-        Resource resource = new FileSystemResource(filePath.toFile());
+        Resource resource = getFileSystemResource(filePath.toFile());
         //Check if file exist
         if(!resource.exists())
             throw new DocumentFailedException("File not exist!!");
@@ -136,7 +142,7 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         return userOptional.get();
     }
     private String hashFile(byte[] fileBytes) throws NoSuchAlgorithmException {
-        byte[] hash = MessageDigest.getInstance("MD5").digest(fileBytes);
+        byte[] hash = getMessageDigest().digest(fileBytes);
         String checksum = new BigInteger(1, hash).toString(16);
 
         return checksum;
@@ -176,5 +182,27 @@ public class DocumentService extends BaseService<Document, DocumentRepo, Integer
         user.getDocuments().add(document);
         userRepo.save(user);
 //        documentRepo.save(document);
+    }
+    private MessageDigest getMessageDigest(){
+        return messageDigest;
+    }
+    public void setMessageDigest(MessageDigest messageDigest){
+        this.messageDigest = messageDigest;
+    }
+    public Resource getFileSystemResource(File file){
+        try {
+            return (Resource) fileSystemClass.getConstructor(File.class).newInstance(file);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void setFileSystemResourceClass(Class<?> fileSystemClass){
+        this.fileSystemClass = fileSystemClass;
     }
 }

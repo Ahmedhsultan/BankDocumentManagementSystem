@@ -23,10 +23,12 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
     private PostRepo postRepo;
     private UserRepo userRepo;
     private DocumentRepo documentRepo;
+    private WebClientMethods<PostRes> webClientMethods;
     public PostService(PostRepo postRepo, UserRepo userRepo, DocumentRepo documentRepo){
         this.postRepo = postRepo;
         this.userRepo = userRepo;
         this.documentRepo = documentRepo;
+        this.webClientMethods = new WebClientMethods<>();
     }
 
     public void create(String title, String body, DocumentParam documentParam) {
@@ -45,8 +47,7 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
         Document document = optionalDocument.get();
 
         //Save post in 3rd part
-        WebClientMethods<PostRes> webClientMethods = new WebClientMethods();
-        Mono<PostRes> response = webClientMethods.post(apiURL,
+        Mono<PostRes> response = getWebClient().post(apiURL,
                 "/posts", new PostReq(title, body, user.getId())
                         , PostRes.class);
 
@@ -72,8 +73,7 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
         Integer postId = document.getPost().getId();
 
         //Get post from 3rd part
-        WebClientMethods<PostRes> webClientMethods = new WebClientMethods();
-        Mono<PostRes> response = webClientMethods.get(apiURL, "/posts/{postId}",
+        Mono<PostRes> response = getWebClient().get(apiURL, "/posts/{postId}",
                 postId
                 , PostRes.class);
 
@@ -98,5 +98,11 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
             throw new DocumentFailedException("Unavailable user!!");
 
         return userOptional.get();
+    }
+    private WebClientMethods getWebClient(){
+        return webClientMethods;
+    }
+    public void setWebClientMethods(WebClientMethods webClientMethods){
+        this.webClientMethods = webClientMethods;
     }
 }

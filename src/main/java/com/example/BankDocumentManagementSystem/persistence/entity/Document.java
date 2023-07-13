@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -27,5 +28,5 @@ public class Document {
     @OneToOne
     private Post post;
     @OneToMany
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>();
 }

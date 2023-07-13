@@ -28,11 +28,13 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
     private CommentRepo commentRepo;
     private UserRepo userRepo;
     private DocumentRepo documentRepo;
+    private WebClientMethods<CommentRes> webClientMethods;
     public CommentService(PostRepo postRepo, UserRepo userRepo, DocumentRepo documentRepo, CommentRepo commentRepo){
         this.postRepo = postRepo;
         this.userRepo = userRepo;
         this.documentRepo = documentRepo;
         this.commentRepo = commentRepo;
+        this.webClientMethods = new WebClientMethods<>();
     }
 
     public void create(String title, String body, DocumentParam documentParam) {
@@ -51,8 +53,7 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
         Document document = optionalDocument.get();
 
         //Save CommentRes in 3rd part
-        WebClientMethods<CommentRes> webClientMethods = new WebClientMethods();
-        Mono<CommentRes> response = webClientMethods.post(apiURL,
+        Mono<CommentRes> response = getWebClient().post(apiURL,
                 "/comments", new CommentReq(title, body, user.getId())
                 , CommentRes.class);
 
@@ -82,8 +83,7 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
         //Get comments from 3rd part
         List<CommentRes> comments = new ArrayList<>();
         for (int id : commentsId){
-            WebClientMethods<CommentRes> webClientMethods = new WebClientMethods();
-            Mono<CommentRes> response = webClientMethods.get(apiURL, "/comments/{Id}",
+            Mono<CommentRes> response = getWebClient().get(apiURL, "/comments/{Id}",
                     id, CommentRes.class);
             comments.add(response.block());
         }
@@ -109,5 +109,11 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
             throw new DocumentFailedException("Unavailable user!!");
 
         return userOptional.get();
+    }
+    private WebClientMethods getWebClient(){
+        return webClientMethods;
+    }
+    public void setWebClientMethods(WebClientMethods webClientMethods){
+        this.webClientMethods = webClientMethods;
     }
 }

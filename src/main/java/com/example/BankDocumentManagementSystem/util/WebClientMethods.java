@@ -4,10 +4,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 public class WebClientMethods <T>{
-    public Mono<T> post(String url, String resouce, Object object, Class<T> returnType){
+    public Mono<T> post(String url, String resource, Object object, Class<T> returnType){
         WebClient client = WebClient.create(url);
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.post();
-        WebClient.RequestBodySpec bodySpec = uriSpec.uri(resouce);
+        WebClient.RequestBodySpec bodySpec = uriSpec.uri(resource);
         WebClient.RequestHeadersSpec<?> headersSpec = bodySpec.body(
                 Mono.just(object), object.getClass());
         Mono<T> response = headersSpec.retrieve()
