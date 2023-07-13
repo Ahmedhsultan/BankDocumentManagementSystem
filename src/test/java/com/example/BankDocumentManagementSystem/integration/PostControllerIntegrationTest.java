@@ -8,8 +8,10 @@ import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -38,18 +40,19 @@ class PostControllerIntegrationTest {
         String body = "Test Body";
         String title = "Test Title";
         String documentName = "Document";
-        String userName = "User";
+        String userName = "ahmed";
         DocumentParam documentParam = new DocumentParam(documentName, userName);
 
-        User user = new User();
-        user.setUserName(userName);
+        User user = testEntityManager.find(User.class, 1);
+        userName = user.getUserName();
 
         Document document = new Document();
         document.setOriginalFileName(documentName);
-
+        document.setFileHash("c132cee4c5d311c55e8081a49fd915e7");
+        user.getDocuments().add(document);
         testEntityManager.persist(user);
-        testEntityManager.persist(document);
 
+        //Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.post("/post/create")
                         .param("post", body)
                         .param("title", title)
