@@ -40,11 +40,10 @@ class PostControllerIntegrationTest {
         String body = "Test Body";
         String title = "Test Title";
         String documentName = "Document";
-        String userName = "ahmed";
-        DocumentParam documentParam = new DocumentParam(documentName, userName);
+        String userName = "ahmedtest";
 
-        User user = testEntityManager.find(User.class, 1);
-        userName = user.getUserName();
+        User user = new User();
+        user.setUserName(userName);
 
         Document document = new Document();
         document.setOriginalFileName(documentName);
