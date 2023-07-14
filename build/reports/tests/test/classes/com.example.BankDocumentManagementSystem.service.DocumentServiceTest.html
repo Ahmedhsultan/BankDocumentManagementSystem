@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.180s</div>
+<div class="counter">0.221s</div>
 <p>duration</p>
 </div>
 </td>
@@ -82,17 +82,17 @@
 </thead>
 <tr>
 <td class="success">testDownload_DocumentExists_ReturnsResource()</td>
-<td class="success">0.124s</td>
+<td class="success">0.175s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testUpload_InvalidDocument_ThrowsException()</td>
-<td class="success">0.024s</td>
+<td class="success">0.025s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testUpload_ValidDocument_SuccessfullyUploaded()</td>
-<td class="success">0.032s</td>
+<td class="success">0.021s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -100,15 +100,15 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-07-13T11:38:02.153+02:00  INFO 6316 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.service.DocumentServiceTest]: DocumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-07-13T11:38:02.156+02:00  INFO 6316 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.service.DocumentServiceTest
+<pre>2023-07-14T22:08:55.937+02:00  INFO 2272 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.service.DocumentServiceTest]: DocumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-14T22:08:55.942+02:00  INFO 2272 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.service.DocumentServiceTest
 </pre>
 </span>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$UN8qRaQO.
+<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$E3CWwZjc.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -227,7 +227,7 @@
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$UN8qRaQO.
+Caused by: java.io.IOException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$E3CWwZjc.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -240,7 +240,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 118 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$UN8qRaQO$auxiliary$DWy0Y5Uh.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$E3CWwZjc$auxiliary$0NC5zVG2.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -359,7 +359,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting org/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$UN8qRaQO$auxiliary$DWy0Y5Uh.
+Caused by: java.io.IOException: Error while instrumenting org/mockito/codegen/MessageDigest$MockitoMock$E3CWwZjc$auxiliary$0NC5zVG2.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -383,7 +383,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 13, 2023, 11:38:05 AM</p>
+<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 14, 2023, 10:08:59 PM</p>
 </div>
 </div>
 </body>

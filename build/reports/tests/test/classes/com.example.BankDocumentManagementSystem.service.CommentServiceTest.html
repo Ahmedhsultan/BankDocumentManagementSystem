@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.116s</div>
+<div class="counter">0.177s</div>
 <p>duration</p>
 </div>
 </td>
@@ -82,17 +82,17 @@
 </thead>
 <tr>
 <td class="success">testCreate_DocumentNotExists_ThrowsException()</td>
-<td class="success">0.008s</td>
+<td class="success">0.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testCreate_ValidDocument_SuccessfullyCreated()</td>
-<td class="success">0.025s</td>
+<td class="success">0.069s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFindByDocumentName_ValidDocument_ReturnsComments()</td>
-<td class="success">0.083s</td>
+<td class="success">0.096s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -100,8 +100,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-07-13T11:37:59.554+02:00  INFO 6316 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.service.CommentServiceTest]: CommentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-07-13T11:37:59.591+02:00  INFO 6316 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.service.CommentServiceTest
+<pre>2023-07-14T22:08:53.156+02:00  INFO 2272 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.service.CommentServiceTest]: CommentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-14T22:08:53.182+02:00  INFO 2272 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.service.CommentServiceTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -111,17 +111,17 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.1)
 
-2023-07-13T11:38:00.860+02:00  INFO 6316 --- [    Test worker] c.e.B.service.CommentServiceTest         : Starting CommentServiceTest using Java 18.0.1.1 with PID 6316 (started by vevan in G:\Career\Interview\Tassk\BankDocumentManagementSystem)
-2023-07-13T11:38:00.861+02:00  INFO 6316 --- [    Test worker] c.e.B.service.CommentServiceTest         : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-07-13T11:38:01.270+02:00  INFO 6316 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-07-13T11:38:01.321+02:00  INFO 6316 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 4 JPA repository interfaces.
-2023-07-13T11:38:01.380+02:00  INFO 6316 --- [    Test worker] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
-2023-07-13T11:38:01.460+02:00  INFO 6316 --- [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:fc5f0492-6362-446b-ac9c-882336eb0915;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
-2023-07-13T11:38:01.509+02:00  INFO 6316 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-07-13T11:38:01.525+02:00  INFO 6316 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2023-07-13T11:38:01.525+02:00  INFO 6316 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-07-13T11:38:01.568+02:00  INFO 6316 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2023-07-13T11:38:01.754+02:00  INFO 6316 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-14T22:08:54.703+02:00  INFO 2272 --- [    Test worker] c.e.B.service.CommentServiceTest         : Starting CommentServiceTest using Java 18.0.1.1 with PID 2272 (started by vevan in G:\Career\Interview\Task\BankDocumentManagementSystem)
+2023-07-14T22:08:54.703+02:00  INFO 2272 --- [    Test worker] c.e.B.service.CommentServiceTest         : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-07-14T22:08:54.908+02:00  INFO 2272 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-14T22:08:54.939+02:00  INFO 2272 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 4 JPA repository interfaces.
+2023-07-14T22:08:54.967+02:00  INFO 2272 --- [    Test worker] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2023-07-14T22:08:54.984+02:00  INFO 2272 --- [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:cd8b7106-c58e-4487-b0ce-f8f088ace0e9;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-07-14T22:08:55.017+02:00  INFO 2272 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-14T22:08:55.035+02:00  INFO 2272 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-14T22:08:55.035+02:00  INFO 2272 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-14T22:08:55.083+02:00  INFO 2272 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-14T22:08:55.277+02:00  INFO 2272 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
 Hibernate: drop table if exists comment cascade 
 Hibernate: drop table if exists document cascade 
 Hibernate: drop table if exists document_comments cascade 
@@ -147,15 +147,15 @@ Hibernate: alter table if exists user_table_documents add constraint FKbsdel44h1
 Hibernate: alter table if exists user_table_documents add constraint FKgh7rp4g7y3e8f09p27xfo6ccp foreign key (user_id) references user_table
 Hibernate: alter table if exists user_table_posts add constraint FK3f6ie1xcbgut4fdg29qttryto foreign key (posts_id) references post
 Hibernate: alter table if exists user_table_posts add constraint FK7v6ntine1plctu7ng51fh71ia foreign key (user_id) references user_table
-2023-07-13T11:38:01.852+02:00  INFO 6316 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-07-13T11:38:02.014+02:00  INFO 6316 --- [    Test worker] c.e.B.service.CommentServiceTest         : Started CommentServiceTest in 1.204 seconds (process running for 60.695)
+2023-07-14T22:08:55.397+02:00  INFO 2272 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-14T22:08:55.712+02:00  INFO 2272 --- [    Test worker] c.e.B.service.CommentServiceTest         : Started CommentServiceTest in 1.088 seconds (process running for 54.398)
 </pre>
 </span>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P.
+<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -283,7 +283,7 @@ Hibernate: alter table if exists user_table_posts add constraint FK7v6ntine1plct
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -296,7 +296,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P$auxiliary$fvsKKOkH.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx$auxiliary$cmuQVK9d.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -424,7 +424,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P$auxiliary$fvsKKOkH.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx$auxiliary$cmuQVK9d.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -437,7 +437,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P$auxiliary$gNLD2RJm.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx$auxiliary$RXpDa3H3.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -565,7 +565,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$g2lwT91P$auxiliary$gNLD2RJm.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/UserRepo$MockitoMock$78Wkw2Tx$auxiliary$RXpDa3H3.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -578,7 +578,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -706,7 +706,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting reac
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner.
+Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -719,7 +719,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner$auxiliary$pGlGt4iy.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId$auxiliary$D1kdja7Z.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -847,7 +847,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting reac
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner$auxiliary$pGlGt4iy.
+Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId$auxiliary$D1kdja7Z.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -860,7 +860,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner$auxiliary$5xE8ehEJ.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId$auxiliary$rrEXqJdv.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -988,7 +988,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting reac
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$vnIFoner$auxiliary$5xE8ehEJ.
+Caused by: java.io.IOException: Error while instrumenting reactor/core/publisher/Mono$MockitoMock$ftalqTId$auxiliary$rrEXqJdv.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1001,7 +1001,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 127 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateProxy$0kIqG7EV.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateProxy$HfS8Bgqp.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1160,7 +1160,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateProxy$0kIqG7EV.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateProxy$HfS8Bgqp.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1173,7 +1173,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 158 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateInstantiator$jfJHVcEt.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateInstantiator$Asw2TQDV.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1325,7 +1325,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateInstantiator$jfJHVcEt.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Document$HibernateInstantiator$Asw2TQDV.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1338,7 +1338,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 151 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateProxy$udjw9Rjl.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateProxy$UjpYfEyC.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1497,7 +1497,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateProxy$udjw9Rjl.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateProxy$UjpYfEyC.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1510,7 +1510,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 158 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateInstantiator$fxS29QZu.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateInstantiator$DclY3a0B.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1662,7 +1662,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateInstantiator$fxS29QZu.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateInstantiator$DclY3a0B.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1675,7 +1675,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 151 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateAccessOptimizer$oNQm3D5M.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateAccessOptimizer$GSFT1JhN.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1827,7 +1827,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateAccessOptimizer$oNQm3D5M.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Comment$HibernateAccessOptimizer$GSFT1JhN.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -1840,7 +1840,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 151 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateProxy$L2DO9udb.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateProxy$5HY4fzT1.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -1999,7 +1999,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateProxy$L2DO9udb.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateProxy$5HY4fzT1.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -2012,7 +2012,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 158 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateInstantiator$SmKBPO39.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateInstantiator$9GOaODRn.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -2164,7 +2164,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateInstantiator$SmKBPO39.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/User$HibernateInstantiator$9GOaODRn.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -2177,7 +2177,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 151 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateProxy$3vNvnxMS.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateProxy$UIQVAz1v.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -2336,7 +2336,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateProxy$3vNvnxMS.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateProxy$UIQVAz1v.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -2349,7 +2349,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 158 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateInstantiator$b77YF9fB.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateInstantiator$cwlF19zZ.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -2501,7 +2501,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateInstantiator$b77YF9fB.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/entity/Post$HibernateInstantiator$cwlF19zZ.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -2525,7 +2525,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 13, 2023, 11:38:05 AM</p>
+<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 14, 2023, 10:08:59 PM</p>
 </div>
 </div>
 </body>

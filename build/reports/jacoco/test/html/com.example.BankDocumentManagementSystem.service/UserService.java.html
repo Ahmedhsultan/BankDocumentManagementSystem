@@ -7,7 +7,7 @@ import com.example.BankDocumentManagementSystem.util.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends BaseService&lt;User, UserRepo, Integer, UserDTOResp, UserMapper&gt; {
+public class UserService extends BaseService&lt;UserRepo, Integer, UserDTOResp, UserMapper&gt; {
     private UserRepo userRepo;
 <span class="fc" id="L12">    public UserService(UserRepo userRepo){</span>
 <span class="fc" id="L13">        this.userRepo = userRepo;</span>

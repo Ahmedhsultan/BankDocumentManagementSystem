@@ -82,12 +82,12 @@
 </thead>
 <tr>
 <td class="success">testCreate_ValidPost_ReturnsCreatedStatus()</td>
-<td class="success">0.013s</td>
+<td class="success">0.020s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testView_ValidDocument_ReturnsPost()</td>
-<td class="success">0.029s</td>
+<td class="success">0.022s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -95,8 +95,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-07-13T11:37:43.545+02:00  INFO 6316 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-07-13T11:37:43.555+02:00  INFO 6316 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.controller.PostControllerTest
+<pre>2023-07-14T22:08:49.386+02:00  INFO 2272 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-14T22:08:49.399+02:00  INFO 2272 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.controller.PostControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -106,19 +106,19 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.1)
 
-2023-07-13T11:37:43.618+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.PostControllerTest      : Starting PostControllerTest using Java 18.0.1.1 with PID 6316 (started by vevan in G:\Career\Interview\Tassk\BankDocumentManagementSystem)
-2023-07-13T11:37:43.621+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.PostControllerTest      : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-07-13T11:37:45.337+02:00  INFO 6316 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-07-13T11:37:45.337+02:00  INFO 6316 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-07-13T11:37:45.338+02:00  INFO 6316 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2023-07-13T11:37:45.350+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.PostControllerTest      : Started PostControllerTest in 1.788 seconds (process running for 44.031)
+2023-07-14T22:08:49.501+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.PostControllerTest      : Starting PostControllerTest using Java 18.0.1.1 with PID 2272 (started by vevan in G:\Career\Interview\Task\BankDocumentManagementSystem)
+2023-07-14T22:08:49.501+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.PostControllerTest      : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-07-14T22:08:51.254+02:00  INFO 2272 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-07-14T22:08:51.254+02:00  INFO 2272 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-07-14T22:08:51.257+02:00  INFO 2272 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2023-07-14T22:08:51.273+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.PostControllerTest      : Started PostControllerTest in 1.855 seconds (process running for 49.959)
 </pre>
 </span>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D.
+<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -261,7 +261,7 @@
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -274,7 +274,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 142 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D$auxiliary$cBonQN3g.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG$auxiliary$huS9IW9r.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -417,7 +417,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D$auxiliary$cBonQN3g.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG$auxiliary$huS9IW9r.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -430,7 +430,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 142 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D$auxiliary$Ilx2Kd07.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG$auxiliary$lwZZW8VX.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -573,7 +573,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$7YCxam9D$auxiliary$Ilx2Kd07.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/PostRepo$MockitoMock$R4v8RECG$auxiliary$lwZZW8VX.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -597,7 +597,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 13, 2023, 11:38:05 AM</p>
+<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 14, 2023, 10:08:59 PM</p>
 </div>
 </div>
 </body>

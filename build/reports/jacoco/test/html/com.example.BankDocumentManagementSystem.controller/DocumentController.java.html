@@ -18,7 +18,7 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping(&quot;document&quot;)
-public class DocumentController extends BaseController&lt;Integer, Document, DocumentRepo, DocumentDTOResp, DocumentMapper, DocumentService&gt; {
+public class DocumentController extends BaseController&lt;Integer, DocumentDTOResp, DocumentService&gt; {
     private DocumentService documentService;
 <span class="fc" id="L23">    public DocumentController(DocumentService documentService){</span>
 <span class="fc" id="L24">        this.documentService = documentService;</span>

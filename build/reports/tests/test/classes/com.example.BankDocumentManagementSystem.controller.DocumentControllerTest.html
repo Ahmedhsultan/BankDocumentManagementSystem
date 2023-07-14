@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.104s</div>
+<div class="counter">0.135s</div>
 <p>duration</p>
 </div>
 </td>
@@ -82,22 +82,22 @@
 </thead>
 <tr>
 <td class="success">testDelete_ValidDocument_ReturnsSuccess()</td>
-<td class="success">0.023s</td>
+<td class="success">0.031s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testDownload_ValidDocument_ReturnsFile()</td>
-<td class="success">0.020s</td>
+<td class="success">0.035s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testUpdate_ValidFile_ReturnsCreatedStatus()</td>
-<td class="success">0.036s</td>
+<td class="success">0.031s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testUpload_ValidFile_ReturnsCreatedStatus()</td>
-<td class="success">0.025s</td>
+<td class="success">0.038s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -105,8 +105,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-07-13T11:37:40.703+02:00  INFO 6316 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.controller.DocumentControllerTest]: DocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-07-13T11:37:40.726+02:00  INFO 6316 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.controller.DocumentControllerTest
+<pre>2023-07-14T22:08:46.594+02:00  INFO 2272 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.BankDocumentManagementSystem.controller.DocumentControllerTest]: DocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-14T22:08:46.630+02:00  INFO 2272 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.BankDocumentManagementSystem.BankDocumentManagementSystemApplication for test class com.example.BankDocumentManagementSystem.controller.DocumentControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -116,19 +116,19 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.1)
 
-2023-07-13T11:37:40.830+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : Starting DocumentControllerTest using Java 18.0.1.1 with PID 6316 (started by vevan in G:\Career\Interview\Tassk\BankDocumentManagementSystem)
-2023-07-13T11:37:40.831+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-07-13T11:37:43.377+02:00  INFO 6316 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-07-13T11:37:43.377+02:00  INFO 6316 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-07-13T11:37:43.380+02:00  INFO 6316 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
-2023-07-13T11:37:43.396+02:00  INFO 6316 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : Started DocumentControllerTest in 2.648 seconds (process running for 42.076)
+2023-07-14T22:08:46.738+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : Starting DocumentControllerTest using Java 18.0.1.1 with PID 2272 (started by vevan in G:\Career\Interview\Task\BankDocumentManagementSystem)
+2023-07-14T22:08:46.740+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-07-14T22:08:49.193+02:00  INFO 2272 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-07-14T22:08:49.194+02:00  INFO 2272 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-07-14T22:08:49.196+02:00  INFO 2272 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2023-07-14T22:08:49.213+02:00  INFO 2272 --- [    Test worker] c.e.B.controller.DocumentControllerTest  : Started DocumentControllerTest in 2.565 seconds (process running for 47.9)
 </pre>
 </span>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz.
+<pre>java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -271,7 +271,7 @@
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -284,7 +284,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 142 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz$auxiliary$MLHWArdL.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI$auxiliary$tfGuV7r0.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -427,7 +427,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz$auxiliary$MLHWArdL.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI$auxiliary$tfGuV7r0.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -440,7 +440,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:76)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	... 142 more
-java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz$auxiliary$vg4RsMPG.
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI$auxiliary$ftIdKumo.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
 	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
@@ -583,7 +583,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting com/
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$RZQoi0lz$auxiliary$vg4RsMPG.
+Caused by: java.io.IOException: Error while instrumenting com/example/BankDocumentManagementSystem/persistence/repository/DocumentRepo$MockitoMock$iBBzujvI$auxiliary$ftIdKumo.
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrumentError(Instrumenter.java:160)
 	at org.jacoco.agent.rt.internal_3570298.core.instr.Instrumenter.instrument(Instrumenter.java:110)
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:92)
@@ -607,7 +607,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 13, 2023, 11:38:05 AM</p>
+<a href="http://www.gradle.org">Gradle 8.1.1</a> at Jul 14, 2023, 10:08:59 PM</p>
 </div>
 </div>
 </body>

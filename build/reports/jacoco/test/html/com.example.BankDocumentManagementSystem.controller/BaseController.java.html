@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-<span class="fc" id="L14">public class BaseController &lt;ID, Entity, Repo extends JpaRepository&lt;Entity, ID&gt;, DTO, Mapper extends BaseMapper&lt;Entity, DTO&gt;, Service extends BaseService&lt;Entity, Repo, ID, DTO, Mapper&gt;&gt;{</span>
+<span class="fc" id="L14">public class BaseController &lt;ID, DTO, Service extends BaseService&gt;{</span>
     @Autowired
     protected ObjectFactory&lt;Service&gt; service;
 
@@ -21,7 +21,7 @@ import java.util.List;
     }
     @GetMapping
     public DTO getById(@RequestParam ID id){
-<span class="nc" id="L24">        return getService().findById(id);</span>
+<span class="nc" id="L24">        return (DTO) getService().findById(id);</span>
     }
     @DeleteMapping
     public void deleteById(@RequestParam ID id){
