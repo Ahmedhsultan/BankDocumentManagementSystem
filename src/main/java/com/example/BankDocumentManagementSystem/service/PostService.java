@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.service;
 
+import com.example.BankDocumentManagementSystem.dto.request.PostDTOReq;
 import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
 import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class PostService extends BaseService<Post, PostRepo, Integer, PostDTOResp, PostMapper> {
+public class PostService extends BaseService<PostRepo, Integer, PostDTOResp, PostMapper> {
     private String apiURL = "https://jsonplaceholder.typicode.com";
     private PostRepo postRepo;
     private UserRepo userRepo;
@@ -31,13 +32,13 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
         this.webClientMethods = new WebClientMethods<>();
     }
 
-    public void create(String title, String body, DocumentParam documentParam) {
+    public void create(PostDTOReq postDTOReq) {
         //Get user and get document from this user
-        User user = getUser(documentParam.userName());
+        User user = getUser(postDTOReq.userName());
         Set<Document> documents = user.getDocuments();
 
         Optional<Document> optionalDocument = documents.stream()
-                .filter(x -> x.getOriginalFileName().equals(documentParam.fileName()))
+                .filter(x -> x.getOriginalFileName().equals(postDTOReq.documentName()))
                 .findFirst();
 
         if (!optionalDocument.isPresent())
@@ -48,7 +49,7 @@ public class PostService extends BaseService<Post, PostRepo, Integer, PostDTORes
 
         //Save post in 3rd part
         Mono<PostRes> response = getWebClient().post(apiURL,
-                "/posts", new PostReq(title, body, user.getId())
+                "/posts", new PostReq(postDTOReq.title(), postDTOReq.body(), user.getId())
                         , PostRes.class);
 
         int postId = response.block().id;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
-public class UserController extends BaseController<Integer, User, UserRepo, UserDTOResp, UserMapper, UserService> {
+public class UserController extends BaseController<Integer, UserDTOResp, UserService> {
 
     private UserService UserService;
 

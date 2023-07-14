@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.service;
 
+import com.example.BankDocumentManagementSystem.dto.request.CommentDTOReq;
 import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
 import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
@@ -56,7 +57,7 @@ public class CommentServiceTest {
         String userName = "hana";
         String title = "Test Title";
         String body = "Test Body";
-        DocumentParam documentParam = new DocumentParam(fileName, userName);
+        CommentDTOReq commentDTOReq = new CommentDTOReq(body, title, fileName, userName);
 
         Document document = new Document();
         document.setId(1);
@@ -77,7 +78,7 @@ public class CommentServiceTest {
         when(webClientMethods.post(anyString(), anyString(), any(), eq(CommentService.CommentRes.class))).thenReturn(Mono.just(commentRes));
         commentService.setWebClientMethods(webClientMethods);
         // Act
-        assertDoesNotThrow(() -> commentService.create(title, body, documentParam));
+        assertDoesNotThrow(() -> commentService.create(commentDTOReq));
         Comment resultComment = testEntityManager.find(Comment.class, 1);
 
         // Assert.
@@ -92,18 +93,18 @@ public class CommentServiceTest {
         String body = "Test Body";
         String fileName = "filename";
         String userName = "hana";
-        DocumentParam documentParam = new DocumentParam(fileName, userName);
+        CommentDTOReq commentDTOReq = new CommentDTOReq(body, title, fileName, userName);
 
         User user = new User();
         user.setDocuments(new HashSet<>());
         CommentService.CommentReq commentReq = new CommentService.CommentReq(title, body, 1);
 
-        when(userRepo.findByUserName(documentParam.userName())).thenReturn(Optional.of(user));
+        when(userRepo.findByUserName(commentDTOReq.userName())).thenReturn(Optional.of(user));
 
         // Act & Assert
-        assertThrows(DocumentFailedException.class, () -> commentService.create(title, body, documentParam));
+        assertThrows(DocumentFailedException.class, () -> commentService.create(commentDTOReq));
 
-        verify(userRepo, times(1)).findByUserName(documentParam.userName());
+        verify(userRepo, times(1)).findByUserName(commentDTOReq.userName());
         verify(documentRepo, never()).save(any(Document.class));
         verify(commentRepo, never()).save(any(Comment.class));
     }

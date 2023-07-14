@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.controller;
 
+import com.example.BankDocumentManagementSystem.dto.request.PostDTOReq;
 import com.example.BankDocumentManagementSystem.dto.responce.PostDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.Post;
 import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("post")
-public class PostController extends BaseController<Integer, Post, PostRepo, PostDTOResp, PostMapper, PostService> {
+public class PostController extends BaseController<Integer, PostDTOResp, PostService> {
     private PostService postService;
     public PostController(PostService postService){
         this.postService = postService;
@@ -20,13 +21,9 @@ public class PostController extends BaseController<Integer, Post, PostRepo, Post
 
     @PostMapping("create")
     //@HystrixCommand(fallbackMethod = "defaultGreeting")
-    public ResponseEntity<String> create(@RequestParam("post") String body,
-                                         @RequestParam("title") String title,
-                                         @RequestParam("document") String documentName,
-                                         @RequestParam("user") String userName ) {
+    public ResponseEntity<String> create(@RequestBody PostDTOReq postDTOReq) {
 
-        DocumentParam documentParam = new DocumentParam(documentName, userName);
-        postService.create(title, body, documentParam);
+        postService.create(postDTOReq);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BaseService <Entity, Repo extends JpaRepository<Entity, ID>, ID, DTO, Mapper extends BaseMapper<Entity, DTO>>{
+public class BaseService <Repo extends JpaRepository, ID, DTO, Mapper extends BaseMapper>{
 
     @Autowired
     private ObjectFactory<Repo> repo;
@@ -16,13 +16,13 @@ public class BaseService <Entity, Repo extends JpaRepository<Entity, ID>, ID, DT
     private ObjectFactory<Mapper> mapper;
 
     public DTO findById(ID id){
-        return getRepo().findById(id).map(getMapper()::toDTO).orElseThrow();
+        return (DTO) getRepo().findById(id).map(getMapper()::toDTO).orElseThrow();
     }
     public void removeById(ID id){
         getRepo().deleteById(id);
     }
     public List<DTO> findAll(){
-        return getRepo().findAll().stream().map(getMapper()::toDTO).collect(Collectors.toList());
+        return (List<DTO>) getRepo().findAll().stream().map(getMapper()::toDTO).collect(Collectors.toList());
     }
 
     protected Repo getRepo(){

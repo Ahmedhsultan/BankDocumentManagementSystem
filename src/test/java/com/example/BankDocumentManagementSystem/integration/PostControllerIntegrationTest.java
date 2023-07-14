@@ -1,10 +1,12 @@
 package com.example.BankDocumentManagementSystem.integration;
 
+import com.example.BankDocumentManagementSystem.dto.request.PostDTOReq;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
 import com.example.BankDocumentManagementSystem.persistence.entity.User;
 import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
 import com.example.BankDocumentManagementSystem.service.PostService;
 import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -42,6 +45,8 @@ class PostControllerIntegrationTest {
         String documentName = "Document";
         String userName = "ahmedtest";
 
+        PostDTOReq postDTOReq = new PostDTOReq(body, title, documentName, userName);
+
         User user = new User();
         user.setUserName(userName);
 
@@ -51,12 +56,12 @@ class PostControllerIntegrationTest {
         user.getDocuments().add(document);
         testEntityManager.persist(user);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
         //Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.post("/post/create")
-                        .param("post", body)
-                        .param("title", title)
-                        .param("document", documentName)
-                        .param("user", userName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postDTOReq)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string("Success"));
     }

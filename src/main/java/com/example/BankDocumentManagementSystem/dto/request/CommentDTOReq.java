@@ -1,14 +1,5 @@
 package com.example.BankDocumentManagementSystem.dto.request;
 
-import lombok.Builder;
-import lombok.Data;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Set;
-
-@Builder
-@Data
-public class CommentDTOReq {
-    private Integer id;
-    private PostDTOReq post;
-    private Set<DocumentDTOReq> documents;
-}
+public record CommentDTOReq (String body, String title, String documentName, String userName){}

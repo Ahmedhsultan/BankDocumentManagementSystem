@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.controller;
 
+import com.example.BankDocumentManagementSystem.dto.request.CommentDTOReq;
 import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
 import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
 import com.example.BankDocumentManagementSystem.persistence.repository.CommentRepo;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("comment")
-public class CommentController extends BaseController<Integer, Comment, CommentRepo, CommentDTOResp, CommentMapper, CommentService> {
+public class CommentController extends BaseController<Integer, CommentDTOResp, CommentService> {
     private CommentService commentService;
     public CommentController(CommentService commentService){
         this.commentService = commentService;
@@ -22,13 +23,9 @@ public class CommentController extends BaseController<Integer, Comment, CommentR
 
     @PostMapping("create")
     //@HystrixCommand(fallbackMethod = "defaultGreeting")
-    public ResponseEntity<String> create(@RequestParam("comment") String body,
-                                         @RequestParam("title") String title,
-                                         @RequestParam("document") String documentName,
-                                         @RequestParam("user") String userName ) {
+    public ResponseEntity<String> create(@RequestBody CommentDTOReq commentDTOReq) {
 
-        DocumentParam documentParam = new DocumentParam(documentName, userName);
-        commentService.create(title, body, documentParam);
+        commentService.create(commentDTOReq);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }

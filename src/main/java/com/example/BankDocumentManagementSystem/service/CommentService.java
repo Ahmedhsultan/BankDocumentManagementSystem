@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.service;
 
+import com.example.BankDocumentManagementSystem.dto.request.CommentDTOReq;
 import com.example.BankDocumentManagementSystem.dto.responce.CommentDTOResp;
 import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
 import com.example.BankDocumentManagementSystem.persistence.entity.Comment;
@@ -22,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class CommentService extends BaseService<Comment, CommentRepo, Integer, CommentDTOResp, CommentMapper>{
+public class CommentService extends BaseService<CommentRepo, Integer, CommentDTOResp, CommentMapper>{
     private String apiURL = "https://jsonplaceholder.typicode.com";
     private PostRepo postRepo;
     private CommentRepo commentRepo;
@@ -37,13 +38,13 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
         this.webClientMethods = new WebClientMethods<>();
     }
 
-    public void create(String title, String body, DocumentParam documentParam) {
+    public void create(CommentDTOReq commentDTOReq) {
         //Get user and get document from this user
-        User user = getUser(documentParam.userName());
+        User user = getUser(commentDTOReq.userName());
         Set<Document> documents = user.getDocuments();
 
         Optional<Document> optionalDocument = documents.stream()
-                .filter(x -> x.getOriginalFileName().equals(documentParam.fileName()))
+                .filter(x -> x.getOriginalFileName().equals(commentDTOReq.documentName()))
                 .findFirst();
 
         if (!optionalDocument.isPresent())
@@ -54,7 +55,7 @@ public class CommentService extends BaseService<Comment, CommentRepo, Integer, C
 
         //Save CommentRes in 3rd part
         Mono<CommentRes> response = getWebClient().post(apiURL,
-                "/comments", new CommentReq(title, body, user.getId())
+                "/comments", new CommentReq(commentDTOReq.title(), commentDTOReq.body(), user.getId())
                 , CommentRes.class);
 
         int commentId = response.block().id;

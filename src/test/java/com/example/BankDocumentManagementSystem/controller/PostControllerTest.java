@@ -1,12 +1,16 @@
 package com.example.BankDocumentManagementSystem.controller;
 
+import com.example.BankDocumentManagementSystem.dto.request.CommentDTOReq;
+import com.example.BankDocumentManagementSystem.dto.request.PostDTOReq;
 import com.example.BankDocumentManagementSystem.persistence.repository.PostRepo;
 import com.example.BankDocumentManagementSystem.service.PostService;
 import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -33,20 +37,19 @@ class PostControllerTest {
         String title = "Test Title";
         String documentName = "Document";
         String userName = "User";
-        DocumentParam documentParam = new DocumentParam(documentName, userName);
+        PostDTOReq postDTOReq = new PostDTOReq(body, title, documentName, userName);
 
-        doNothing().when(postService).create(title, body, documentParam);
+        doNothing().when(postService).create(postDTOReq);
+        ObjectMapper objectMapper = new ObjectMapper();
 
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.post("/post/create")
-                        .param("post", body)
-                        .param("title", title)
-                        .param("document", documentName)
-                        .param("user", userName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postDTOReq)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string("Success"));
 
-        verify(postService, times(1)).create(title, body, documentParam);
+        verify(postService, times(1)).create(postDTOReq);
     }
 
     @Test

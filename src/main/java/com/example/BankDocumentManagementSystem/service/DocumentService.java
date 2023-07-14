@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class DocumentService extends BaseService<Document, DocumentRepo, Integer, DocumentDTOResp, DocumentMapper> {
+public class DocumentService extends BaseService<DocumentRepo, Integer, DocumentDTOResp, DocumentMapper> {
 
     private String uploadPath = Constant.UPLOAD_FILE_PATH;
     private DocumentRepo documentRepo;

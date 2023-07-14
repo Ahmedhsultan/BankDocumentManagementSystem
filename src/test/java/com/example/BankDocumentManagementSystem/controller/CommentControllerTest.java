@@ -1,12 +1,15 @@
 package com.example.BankDocumentManagementSystem.controller;
 
+import com.example.BankDocumentManagementSystem.dto.request.CommentDTOReq;
 import com.example.BankDocumentManagementSystem.persistence.repository.CommentRepo;
 import com.example.BankDocumentManagementSystem.service.CommentService;
 import com.example.BankDocumentManagementSystem.util.records.DocumentParam;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -37,20 +40,20 @@ class CommentControllerTest {
         String title = "Test Title";
         String documentName = "Document";
         String userName = "User";
-        DocumentParam documentParam = new DocumentParam(documentName, userName);
+        CommentDTOReq commentDTOReq = new CommentDTOReq(body, title, documentName, userName);
 
-        doNothing().when(commentService).create(title, body, documentParam);
+        doNothing().when(commentService).create(commentDTOReq);
+
+        ObjectMapper objectMapper = new ObjectMapper();
 
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.post("/comment/create")
-                        .param("comment", body)
-                        .param("title", title)
-                        .param("document", documentName)
-                        .param("user", userName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(commentDTOReq)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string("Success"));
 
-        verify(commentService, times(1)).create(title, body, documentParam);
+        verify(commentService, times(1)).create(commentDTOReq);
     }
 
     @Test

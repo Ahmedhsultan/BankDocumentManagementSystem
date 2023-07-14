@@ -1,5 +1,6 @@
 package com.example.BankDocumentManagementSystem.service;
 
+import com.example.BankDocumentManagementSystem.dto.request.PostDTOReq;
 import com.example.BankDocumentManagementSystem.exception.custom_exception.DocumentFailedException;
 import com.example.BankDocumentManagementSystem.persistence.entity.Document;
 import com.example.BankDocumentManagementSystem.persistence.entity.Post;
@@ -53,7 +54,7 @@ class PostServiceTest {
         String userName = "hana";
         String title = "Test Title";
         String body = "Test Body";
-        DocumentParam documentParam = new DocumentParam(fileName, userName);
+        PostDTOReq postDTOReq = new PostDTOReq(body, title, fileName, userName);
 
         Document document = new Document();
         document.setId(1);
@@ -72,10 +73,10 @@ class PostServiceTest {
         postService.setWebClientMethods(webClientMethods);
 
         // Act
-        assertDoesNotThrow(() -> postService.create(title, body, documentParam));
+        assertDoesNotThrow(() -> postService.create(postDTOReq));
 
         // Assert
-        verify(userRepo, times(1)).findByUserName(documentParam.userName());
+        verify(userRepo, times(1)).findByUserName(postDTOReq.userName());
         verify(documentRepo, times(1)).save(any(Document.class));
         verify(postRepo, times(1)).save(any(Post.class));
     }
@@ -87,17 +88,17 @@ class PostServiceTest {
         String userName = "hana";
         String title = "Test Title";
         String body = "Test Body";
-        DocumentParam documentParam = new DocumentParam(userName, userName);
+        PostDTOReq postDTOReq = new PostDTOReq(body, title, fileName, userName);
 
         User user = new User();
         user.setDocuments(new HashSet<>());
 
-        when(userRepo.findByUserName(documentParam.userName())).thenReturn(Optional.of(user));
+        when(userRepo.findByUserName(postDTOReq.userName())).thenReturn(Optional.of(user));
 
         // Act & Assert
-        assertThrows(DocumentFailedException.class, () -> postService.create(title, body, documentParam));
+        assertThrows(DocumentFailedException.class, () -> postService.create(postDTOReq));
 
-        verify(userRepo, times(1)).findByUserName(documentParam.userName());
+        verify(userRepo, times(1)).findByUserName(postDTOReq.userName());
         verify(documentRepo, never()).save(any(Document.class));
         verify(postRepo, never()).save(any(Post.class));
     }
